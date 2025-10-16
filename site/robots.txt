@@ -1,0 +1,33 @@
+# robots.txt für tomforde.com
+# https://tomforde.com/robots.txt
+
+User-agent: *
+Allow: /
+
+# Sitemap
+Sitemap: https://tomforde.com/sitemap.xml
+
+# Disallow admin/hidden directories (falls vorhanden)
+Disallow: /admin/
+Disallow: /_*/
+Disallow: /.git/
+Disallow: /vendor/
+
+# Allow search engines to crawl all content
+# Specific directives for major search engines
+
+# Google
+User-agent: Googlebot
+Allow: /
+
+# Bing
+User-agent: Bingbot
+Allow: /
+
+# Yandex
+User-agent: Yandex
+Allow: /
+
+# Crawl-delay (optional, nur wenn Server-Last ein Problem ist)
+# Crawl-delay: 10
+

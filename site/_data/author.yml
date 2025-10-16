@@ -1,4 +1,5 @@
-#-------------------------------
-# Author Settings
-author_name: Stephan Tomforde
-author_image: '/images/avatar.jpg'
+name: Stephan Tomforde
+email: stephan@tomforde.com
+# twitter: username  # Optional: Dein Twitter/X Handle (ohne @)
+# github: username   # Optional: Dein GitHub Username
+# linkedin: username # Optional: Dein LinkedIn Username

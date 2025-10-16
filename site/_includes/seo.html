@@ -1,0 +1,151 @@
+<!-- SEO Meta Tags -->
+{% if page.url == "/" %}
+  {% assign seo_title = site.data.general_settings.title %}
+  {% assign seo_description = site.data.general_settings.description %}
+{% elsif page.title %}
+  {% assign seo_title = page.title | append: " – " | append: site.data.general_settings.title %}
+  {% assign seo_description = page.description | default: page.excerpt | default: site.data.general_settings.description %}
+{% else %}
+  {% assign seo_title = site.data.general_settings.title %}
+  {% assign seo_description = site.data.general_settings.description %}
+{% endif %}
+
+{% assign seo_description_clean = seo_description | strip_html | strip_newlines | truncate: 160 %}
+
+<!-- Primary Meta Tags -->
+<title>{{ seo_title }}</title>
+<meta name="title" content="{{ seo_title }}">
+<meta name="description" content="{{ seo_description_clean }}">
+<meta name="author" content="{{ site.data.author.name | default: site.data.general_settings.title }}">
+<meta name="robots" content="index, follow">
+<meta name="language" content="German">
+<meta name="revisit-after" content="7 days">
+
+<!-- Keywords (optional, nicht mehr so wichtig für SEO) -->
+{% if page.tags %}
+<meta name="keywords" content="{{ page.tags | join: ', ' }}">
+{% endif %}
+
+<!-- Canonical URL -->
+<link rel="canonical" href="{{ page.url | replace:'index.html','' | absolute_url }}">
+
+<!-- Open Graph / Facebook -->
+<meta property="og:type" content="{% if page.layout == 'post' or page.layout == 'project' %}article{% else %}website{% endif %}">
+<meta property="og:url" content="{{ page.url | replace:'index.html','' | absolute_url }}">
+<meta property="og:title" content="{{ seo_title }}">
+<meta property="og:description" content="{{ seo_description_clean }}">
+<meta property="og:site_name" content="{{ site.data.general_settings.title }}">
+<meta property="og:locale" content="de_DE">
+
+<!-- Open Graph Image -->
+{% if page.image %}
+  <meta property="og:image" content="{{ page.image | absolute_url }}">
+  <meta property="og:image:secure_url" content="{{ page.image | absolute_url }}">
+  <meta property="og:image:type" content="image/jpeg">
+  <meta property="og:image:width" content="1200">
+  <meta property="og:image:height" content="630">
+  <meta property="og:image:alt" content="{{ page.title | default: seo_title }}">
+{% elsif page.url == "/" %}
+  <meta property="og:image" content="{{ site.data.general_settings.social_media_share_image | absolute_url }}">
+  <meta property="og:image:secure_url" content="{{ site.data.general_settings.social_media_share_image | absolute_url }}">
+  <meta property="og:image:type" content="image/jpeg">
+  <meta property="og:image:width" content="1200">
+  <meta property="og:image:height" content="630">
+  <meta property="og:image:alt" content="{{ site.data.general_settings.title }}">
+{% endif %}
+
+<!-- Article specific Open Graph -->
+{% if page.layout == 'post' or page.layout == 'project' %}
+  <meta property="article:published_time" content="{{ page.date | date_to_xmlschema }}">
+  <meta property="article:author" content="{{ site.data.author.name | default: site.data.general_settings.title }}">
+  {% if page.tags %}
+    {% for tag in page.tags %}
+      <meta property="article:tag" content="{{ tag }}">
+    {% endfor %}
+  {% endif %}
+{% endif %}
+
+<!-- Twitter Card -->
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:url" content="{{ page.url | replace:'index.html','' | absolute_url }}">
+<meta name="twitter:title" content="{{ seo_title }}">
+<meta name="twitter:description" content="{{ seo_description_clean }}">
+
+<!-- Twitter Image -->
+{% if page.image %}
+  <meta name="twitter:image" content="{{ page.image | absolute_url }}">
+  <meta name="twitter:image:alt" content="{{ page.title | default: seo_title }}">
+{% elsif page.url == "/" %}
+  <meta name="twitter:image" content="{{ site.data.general_settings.social_media_share_image | absolute_url }}">
+  <meta name="twitter:image:alt" content="{{ site.data.general_settings.title }}">
+{% endif %}
+
+<!-- Twitter Profile (optional - füge dein Twitter-Handle hinzu) -->
+{% if site.data.author.twitter %}
+  <meta name="twitter:site" content="@{{ site.data.author.twitter }}">
+  <meta name="twitter:creator" content="@{{ site.data.author.twitter }}">
+{% endif %}
+
+<!-- JSON-LD Strukturierte Daten -->
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "{% if page.layout == 'post' %}BlogPosting{% elsif page.layout == 'project' %}CreativeWork{% else %}WebSite{% endif %}",
+  {% if page.layout == 'post' or page.layout == 'project' %}
+  "headline": "{{ page.title }}",
+  "description": "{{ seo_description_clean }}",
+  "image": {% if page.image %}"{{ page.image | absolute_url }}"{% else %}"{{ site.data.general_settings.social_media_share_image | absolute_url }}"{% endif %},
+  "datePublished": "{{ page.date | date_to_xmlschema }}",
+  "dateModified": "{{ page.date | date_to_xmlschema }}",
+  "author": {
+    "@type": "Person",
+    "name": "{{ site.data.author.name | default: 'Stephan Tomforde' }}",
+    "url": "{{ site.url }}"
+  },
+  "publisher": {
+    "@type": "Person",
+    "name": "{{ site.data.author.name | default: 'Stephan Tomforde' }}",
+    "url": "{{ site.url }}"
+  },
+  {% else %}
+  "name": "{{ site.data.general_settings.title }}",
+  "description": "{{ site.data.general_settings.description }}",
+  "url": "{{ site.url }}",
+  "author": {
+    "@type": "Person",
+    "name": "{{ site.data.author.name | default: 'Stephan Tomforde' }}"
+  },
+  {% endif %}
+  "inLanguage": "de-DE"
+}
+</script>
+
+{% if page.url == "/" %}
+<!-- Organisation Schema für Startseite -->
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "Person",
+  "name": "Stephan Tomforde",
+  "url": "{{ site.url }}",
+  "sameAs": [
+    {% if site.data.author.github %}"https://github.com/{{ site.data.author.github }}"{% endif %}
+    {% if site.data.author.linkedin %},"https://www.linkedin.com/in/{{ site.data.author.linkedin }}"{% endif %}
+  ],
+  "jobTitle": "Techniker & Designer",
+  "description": "{{ site.data.general_settings.description }}",
+  "address": {
+    "@type": "PostalAddress",
+    "addressCountry": "DE",
+    "addressLocality": "Brest"
+  }
+}
+</script>
+{% endif %}
+
+<!-- Additional SEO Tags -->
+<meta name="theme-color" content="#0F0D1D">
+<meta name="msapplication-TileColor" content="#0F0D1D">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+
