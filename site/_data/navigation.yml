@@ -5,5 +5,9 @@ menu__settings:
     - title: 'Home'
       url: '/'
     - title: 'Projekte'
-      url: '/projects/' 
+      url: '/projects/'
+    - title: 'Ich'
+      url: '/about/'
+    - title: 'Kontakt'
+      url: '/contact/' 
  
