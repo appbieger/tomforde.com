@@ -27,7 +27,8 @@
 <div class="gallery" data-pswp-gallery="{{ gallery_id }}">
 {%- for image in gallery_images -%}
   {%- assign extension = image.extname | downcase -%}
-  {%- if extension == '.jpg' or extension == '.jpeg' or extension == '.png' or extension == '.webp' -%}
+  {%- comment -%} Ignoriere WebP-Versionen - nur Originale anzeigen {%- endcomment -%}
+  {%- if extension == '.jpg' or extension == '.jpeg' or extension == '.png' -%}
     {%- comment -%} Extrahiere Dimensionen aus Dateiname (Format: name_WIDTHxHEIGHT.ext) {%- endcomment -%}
     {%- assign basename = image.basename -%}
     {%- assign parts = basename | split: '_' -%}
