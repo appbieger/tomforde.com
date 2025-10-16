@@ -19,12 +19,7 @@ git add .
 git commit -m "Setup GitHub Pages deployment"
 
 # Auf GitHub pushen
-git push origin main
-```
-
-**Hinweis:** Falls dein Hauptbranch `master` heißt, verwende:
-```bash
-git push origin master
+git push origin master -u
 ```
 
 ### 2. GitHub Pages in den Repository-Einstellungen aktivieren
