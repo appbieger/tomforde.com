@@ -27,11 +27,26 @@ const stat = promisify(fs.stat);
 // Supported image extensions
 const IMAGE_EXTENSIONS = ['.jpg', '.jpeg', '.png', '.webp', '.gif'];
 
+// Gallery subdirectories to process (relative to site/images/)
+// Only images in these subdirectories will be renamed
+const GALLERY_DIRS = ['stella', 'faszination-wasser', 'hunde'];
+
 /**
  * Check if filename already contains dimensions
  */
 function hasDimensions(filename) {
   return /_\d+x\d+\.\w+$/.test(filename);
+}
+
+/**
+ * Check if path is in a gallery directory
+ */
+function isInGalleryDir(filePath) {
+  const normalizedPath = filePath.replace(/\\/g, '/');
+  return GALLERY_DIRS.some(galleryDir => {
+    return normalizedPath.includes(`/images/${galleryDir}/`) || 
+           normalizedPath.includes(`images/${galleryDir}/`);
+  });
 }
 
 /**
@@ -55,6 +70,12 @@ async function processImage(filePath) {
   const ext = path.extname(filePath).toLowerCase();
   const dir = path.dirname(filePath);
   const basename = path.basename(filePath, ext);
+  
+  // Skip if not in a gallery directory
+  if (!isInGalleryDir(filePath)) {
+    console.log(`⊘ Übersprungen (nicht in Galerie): ${path.basename(filePath)}`);
+    return;
+  }
   
   // Skip if already has dimensions
   if (hasDimensions(filePath)) {
