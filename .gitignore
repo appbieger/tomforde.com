@@ -4,6 +4,13 @@ _site
 .jekyll-metadata
 vendor
 node_modules
+site/_site
+site/.jekyll-cache
+site/.sass-cache
+site/vendor
+.DS_Store
+*.log
+.env
 bookshop-live.js
 .DS_Store
 site/.bundle

@@ -1,3 +1,35 @@
+/* Gallery grid for PhotoSwipe wrappers */
+[data-pswp-gallery] {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 16px;
+}
+
+@media (min-width: 992px) {
+  [data-pswp-gallery] {
+    grid-template-columns: 1fr 1fr; /* 2 Spalten auf großen Geräten */
+    gap: 24px;
+  }
+}
+
+[data-pswp-gallery] a {
+  display: block;
+  text-decoration: none;
+  border-bottom: 0;
+}
+
+[data-pswp-gallery] img {
+  display: block;
+  width: 100%;
+  height: auto;
+}
+
+[data-pswp-gallery] a:hover,
+[data-pswp-gallery] a:focus,
+[data-pswp-gallery] a:active {
+  text-decoration: none;
+  border-bottom: 0;
+}
 /* Sections */
 .section {
   padding: 96px 0;

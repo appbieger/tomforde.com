@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="de">
 
 {% include head.html %}
 
@@ -25,5 +25,30 @@
 
     <script src="/js/scripts.js"></script>
     <script src="/js/common.js"></script>
+    <!-- PhotoSwipe JS + Init -->
+    <script type="module">
+      import PhotoSwipeLightbox from 'https://unpkg.com/photoswipe@5/dist/photoswipe-lightbox.esm.min.js';
+      import PhotoSwipe from 'https://unpkg.com/photoswipe@5/dist/photoswipe.esm.min.js';
+      import PhotoSwipeDynamicCaption from 'https://unpkg.com/photoswipe-dynamic-caption-plugin/photoswipe-dynamic-caption-plugin.esm.js';
+
+      const lightbox = new PhotoSwipeLightbox({
+        gallery: '[data-pswp-gallery]',
+        children: 'a[href]',
+        pswpModule: PhotoSwipe,
+      });
+
+      // Dynamic captions: zeigt nur .pswp-caption-content an, kein Fallback auf alt-Attribut
+      const captionPlugin = new PhotoSwipeDynamicCaption(lightbox, {
+        captionContent: (slide) => {
+          const captionEl = slide.data.element.querySelector('.pswp-caption-content');
+          return captionEl ? captionEl.innerHTML : '';
+        }
+      });
+
+      lightbox.init();
+    </script>
+    
 </body>
 </html>
+
+

@@ -1,53 +1,84 @@
-# Vonge
+# tomforde.com
 
-Vonge is a Personal portfolio/blog site template for Jekyll. Browse through a [live demo](https://jazzed-kale.cloudvent.net/).
-Increase the web presence of your brand with this configurable theme.
+Persönliche Website von Stephan Tomforde - Technik, Design und KI.
 
-![Vonge template screenshot](_screenshot.png)
+## 🚀 Live-Website
 
-Vonge was made by [CloudCannon](http://cloudcannon.com/), the JAMStack Cloud CMS.
-The component library is built and maintained for use with [Bookshop](https://github.com/cloudcannon/bookshop/)
+Die Website wird automatisch über GitHub Pages bereitgestellt:
+**https://appbieger.github.io/tomforde.com**
 
-Find more templates, themes and step-by-step Jekyll tutorials at [CloudCannon Community](https://cloudcannon.com/community/).
+## 🛠️ Lokale Entwicklung
 
-[![Deploy to CloudCannon](https://buttons.cloudcannon.com/deploy.svg)](https://app.cloudcannon.com/register#sites/connect/github/CloudCannon/vonge-jekyll-bookshop-template)
+### Voraussetzungen
 
-## Features
+- Ruby 3.1+
+- Node.js 18+
+- Bundler
 
-* Component library for website building
-* Fully configurable Website
-* Pre-built pages
-* Pre-styled components
-* Blog
-* Category pages
-* Testimonials
-* Portfolio
-* Live editing with [CloudCannon](http://cloudcannon.com/)
-* Optimised for editing in [CloudCannon](http://cloudcannon.com/)
-* Search engine optimisation
+### Installation
 
-## Develop
+```bash
+# Node-Dependencies installieren
+npm install
 
-Vonge was built with [Jekyll](http://jekyllrb.com/) version 4.2.1, but should support newer versions as well.
+# Ruby-Dependencies installieren
+cd site
+bundle install
+```
 
-Install the dependencies for Bookshop:
+### Entwicklungsserver starten
 
-~~~bash
-$ npm install
-~~~
+```bash
+npm run live
+```
 
-Install the Jekyll dependencies with [Bundler](http://bundler.io/):
+Die Website ist dann unter `http://localhost:6060` erreichbar.
 
-~~~bash
-$ npm run jekyll:install
-~~~
+## 📸 Bilder-Workflow
 
-Run the website:
+### Dimensionen zu Bildern hinzufügen
 
-~~~bash
-$ npm start
-~~~
+Vor dem Deployment sollten Bilddimensionen in die Dateinamen eingefügt werden:
 
+```bash
+# Alle Bilder verarbeiten
+npm run images:add-dimensions
 
-> [!IMPORTANT]
-> When running locally, the pagination will not work. Deploy to CloudCannon to see successful pagination. 
+# Nur spezifisches Verzeichnis
+npm run images:stella
+```
+
+Dies fügt Dimensionen zu Dateinamen hinzu (z.B. `bild_1920x1080.jpeg`), damit PhotoSwipe die korrekten Aspect Ratios anzeigt.
+
+### Galerie-Beschreibungen
+
+Beschreibungen für Galerie-Bilder werden in `site/_data/gallery_captions.yml` gepflegt:
+
+```yaml
+galerie-name:
+  "dateiname": "Beschreibung des Bildes..."
+```
+
+## 📝 Inhalte bearbeiten
+
+- **Projekte**: `site/collections/_projects/`
+- **Seiten**: `site/collections/_pages/`
+- **Blog-Posts**: `site/collections/_posts/`
+
+## 🔧 Technologie-Stack
+
+- **Static Site Generator**: Jekyll
+- **UI Components**: Bookshop
+- **Styling**: SCSS
+- **Lightbox**: PhotoSwipe 5
+- **Deployment**: GitHub Actions → GitHub Pages
+
+## 📦 Deployment
+
+Jeder Push auf `main` triggert automatisch ein Deployment über GitHub Actions.
+
+Der Workflow baut die Website mit Jekyll und deployed sie auf GitHub Pages.
+
+## 📄 Lizenz
+
+MIT License - siehe LICENSE Datei

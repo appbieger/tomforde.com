@@ -6,13 +6,19 @@ layout: default
   <div class="container">
     <div class="row">
 
-      {%if page.image %}
+      {% if page.header_image %}
+        {% assign display_image = page.header_image %}
+      {% elsif page.image %}
+        {% assign display_image = page.image %}
+      {% endif %}
+      
+      {% if display_image %}
       <div class="col col-6 col-d-12">
         <div class="post-image">
-          <img loading="lazy" src="{{site.baseurl}}{{page.image}}" alt="{{page.title}}">
+          <img loading="lazy" src="{{site.baseurl}}{{display_image}}" alt="{{page.title}}">
         </div>
       </div>
-      {%endif %}
+      {% endif %}
 
       <div class="col col-6 col-d-12">
         <div class="post__info">

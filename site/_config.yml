@@ -1,4 +1,6 @@
-title: Vonge
+title: Stephan Tomforde
+url: "https://appbieger.github.io"
+baseurl: "/tomforde.com"
 
 plugins:
   - jekyll-bookshop
