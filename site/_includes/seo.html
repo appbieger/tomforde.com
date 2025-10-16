@@ -120,19 +120,28 @@
 </script>
 
 {% if page.url == "/" %}
-<!-- Organisation Schema für Startseite -->
+<!-- Person Schema für Startseite -->
 <script type="application/ld+json">
 {
   "@context": "https://schema.org",
   "@type": "Person",
   "name": "Stephan Tomforde",
   "url": "{{ site.url }}",
-  "sameAs": [
-    {% if site.data.author.github %}"https://github.com/{{ site.data.author.github }}"{% endif %}
-    {% if site.data.author.linkedin %},"https://www.linkedin.com/in/{{ site.data.author.linkedin }}"{% endif %}
-  ],
+  {% assign social_links = "" %}
+  {% if site.data.author.github %}
+    {% assign social_links = social_links | append: '"https://github.com/' | append: site.data.author.github | append: '"' %}
+  {% endif %}
+  {% if site.data.author.linkedin %}
+    {% if social_links != "" %}
+      {% assign social_links = social_links | append: ',' %}
+    {% endif %}
+    {% assign social_links = social_links | append: '"https://www.linkedin.com/in/' | append: site.data.author.linkedin | append: '"' %}
+  {% endif %}
+  {% if social_links != "" %}
+  "sameAs": [{{ social_links }}],
+  {% endif %}
   "jobTitle": "Techniker & Designer",
-  "description": "{{ site.data.general_settings.description }}",
+  "description": "{{ site.data.general_settings.description | strip_html | truncate: 200 }}",
   "address": {
     "@type": "PostalAddress",
     "addressCountry": "DE",
