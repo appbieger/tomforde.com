@@ -12,7 +12,9 @@
     "start": "cd site && bundle exec jekyll serve --port 6060",
     "live": "cd site && bundle exec jekyll serve --port 6060 --livereload",
     "images:add-dimensions": "node scripts/add-image-dimensions.js",
-    "images:stella": "node scripts/add-image-dimensions.js site/images/stella"
+    "images:stella": "node scripts/add-image-dimensions.js site/images/stella",
+    "images:optimize": "node scripts/optimize-images.js",
+    "images:optimize-all": "node scripts/optimize-images.js site/images"
   },
   "repository": {
     "type": "git",
@@ -34,6 +36,7 @@
     "@bookshop/generate": "3.9.0",
     "image-size": "^1.1.1",
     "photoswipe": "^5.4.4",
-    "photoswipe-dynamic-caption-plugin": "^1.2.7"
+    "photoswipe-dynamic-caption-plugin": "^1.2.7",
+    "sharp": "^0.32.6"
   }
 }
