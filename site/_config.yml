@@ -1,6 +1,6 @@
 title: Stephan Tomforde
-url: "https://appbieger.github.io"
-baseurl: "/tomforde.com"
+url: "https://tomforde.com"
+baseurl: ""
 
 plugins:
   - jekyll-bookshop
