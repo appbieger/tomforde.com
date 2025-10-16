@@ -10,28 +10,57 @@
             <h2 class="{{c}}__contact-title">{{ include.form_title }}</h2>
             <p class="{{c}}__contact-description">{{ include.form_description }}</p>
           </div>
+          
+          <!-- Success Message -->
+          <div class="{{c}}__form-success" id="form-success" style="display: none;">
+            <div style="padding: 20px; background: #d4edda; border: 1px solid #c3e6cb; border-radius: 4px; margin-bottom: 20px;">
+              <h3 style="color: #155724; margin-bottom: 10px;">✓ Nachricht erfolgreich gesendet!</h3>
+              <p style="color: #155724; margin: 0;">Vielen Dank für deine Nachricht. Ich melde mich so bald wie möglich bei dir!</p>
+            </div>
+          </div>
+          
           <form class="{{c}}__form"
-            action="{{include.form_success_page}}"
-            method="POST">
-            <input type="hidden" name="_to" value="{{include.form_submission_email}}">
+            action="https://formspree.io/f/mqaynpdd"
+            method="POST"
+            id="contact-form">
+            
+            <!-- Formspree Configuration -->
+            <input type="hidden" name="_subject" value="Neue Kontaktanfrage von tomforde.com">
+            <input type="hidden" name="_next" value="https://tomforde.com/contact/?success=true">
+            
+            <!-- Honeypot Spam Protection -->
+            <input type="text" name="_gotcha" style="display:none">
+            
             <div class="{{c}}__form-group">
               <label class="{{c}}__form-label screen-reader-text" for="form-name">Dein Name</label>
               <input class="{{c}}__form-input" id="form-name" type="text" name="name" placeholder="Dein Name..." required>
             </div>
             <div class="{{c}}__form-group">
               <label class="{{c}}__form-label screen-reader-text" for="form-email">Deine E-Mail</label>
-              <input class="{{c}}__form-input" id="form-email" type="email" name="_replyto" placeholder="Deine E-Mail..."
+              <input class="{{c}}__form-input" id="form-email" type="email" name="email" placeholder="Deine E-Mail..."
                 required>
             </div>
             <div class="{{c}}__form-group">
-              <label class="{{c}}__form-label screen-reader-text" for="form-text">Deine Nachricht</label>
-              <textarea class="{{c}}__form-input" id="form-text" name="text" rows="9" placeholder="Deine Nachricht..."
+              <label class="{{c}}__form-label screen-reader-text" for="form-message">Deine Nachricht</label>
+              <textarea class="{{c}}__form-input" id="form-message" name="message" rows="9" placeholder="Deine Nachricht..."
                 required></textarea>
             </div>
             <div class="{{c}}__form-group {{c}}__form-group--button">
               <button class="c-button c-button--primary c-button--large" type="submit">{{ include.form_button_text }}</button>
             </div>
           </form>
+          
+          <!-- Display success message if redirected back with ?success=true -->
+          <script>
+            // Check for success parameter in URL
+            const urlParams = new URLSearchParams(window.location.search);
+            if (urlParams.get('success') === 'true') {
+              document.getElementById('form-success').style.display = 'block';
+              document.getElementById('contact-form').style.display = 'none';
+              // Remove success parameter from URL
+              window.history.replaceState({}, document.title, window.location.pathname);
+            }
+          </script>
         </div>
 
       </div>
