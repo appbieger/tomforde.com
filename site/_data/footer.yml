@@ -6,6 +6,10 @@ footer_menu__settings:
       url: '/projects/'
     - title: 'Ich'
       url: '/about/'
+    - title: 'Impressum'
+      url: '/impressum/'
+    - title: 'Datenschutz'
+      url: '/datenschutz/'
  
 
 copyright_text_html: >-
