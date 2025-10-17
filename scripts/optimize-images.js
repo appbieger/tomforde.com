@@ -117,8 +117,9 @@ async function optimizeImage(filePath) {
       return;
     }
     
-    // Create optimized version
-    let optimizedImage = sharp(filePath);
+    // Create optimized version with auto-rotation based on EXIF
+    let optimizedImage = sharp(filePath)
+      .rotate(); // Automatically rotates image based on EXIF Orientation tag
     
     // Resize if needed
     if (needsResize) {
@@ -167,10 +168,11 @@ async function optimizeImage(filePath) {
       return;
     }
     
-    // Create WebP version
+    // Create WebP version with correct orientation
     const webpPath = path.join(dir, basename + '.webp');
     
     await sharp(filePath)
+      .rotate() // Apply EXIF rotation
       .webp({ quality: WEBP_QUALITY })
       .toFile(webpPath);
     
