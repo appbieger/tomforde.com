@@ -3,7 +3,7 @@ date: 2025-08-16 15:15:00 +0300
 title: Das Meer
 subtitle: Meine Verbindung zum Element Wasser
 image: '/images/faszination-wasser.png'
-header_image: '/images/faszination-wasser/09_Boot_im_Hafen_1600x720.jpg'
+header_image: '/images/rib.jpeg'
 tags: [reisen, wasser, abenteuer, lifestyle]
 ---
 
@@ -19,7 +19,7 @@ Dann kamen neue Abenteuer: **Surfen auf Bali**, **Jetski in Dubai**, **Kajakfahr
 
 > „Ein Taucher, der nicht taucht, taucht nix!“
 
-![Grundrissentwurf STELLA](/images/15_Segelboot_Sonnenuntergang_4032x3024.jpeg){: width="3420" height="1891"}
+![Grundrissentwurf STELLA](/images/faszination-wasser.jpeg){: width="3420" height="1891"}
 
 ### Arbeiten, wo andere Urlaub machen
 Inzwischen ist das Wasser auch Teil meines Alltags geworden.  
