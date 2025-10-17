@@ -4,4 +4,5 @@ title:
 subtitle:
 image:
 header_image:
+permalink:
 ---

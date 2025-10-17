@@ -4,6 +4,7 @@ title: Das Meer
 subtitle: Meine Verbindung zum Element Wasser
 image: '/images/faszination-wasser.png'
 header_image: '/images/rib.jpeg'
+permalink: /meer/
 tags: [reisen, wasser, abenteuer, lifestyle]
 ---
 
