@@ -86,7 +86,7 @@ Implementiert für:
   "@context": "https://schema.org",
   "@type": "Person",
   "name": "Stephan Tomforde",
-  "jobTitle": "Techniker & Designer",
+  "jobTitle": "Techniker & AI enthusiast ",
   "url": "https://tomforde.com"
 }
 ```
