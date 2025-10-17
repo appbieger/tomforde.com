@@ -19,7 +19,7 @@ Dann kamen neue Abenteuer: **Surfen auf Bali**, **Jetski in Dubai**, **Kajakfahr
 
 > „Ein Taucher, der nicht taucht, taucht nix!“
 
-![Grundrissentwurf STELLA](/images/faszination-wasser/15_Segelboot_Sonnenuntergang_4032x3024.jpeg){: width="3420" height="1891"}
+![Grundrissentwurf STELLA](/images/15_Segelboot_Sonnenuntergang_4032x3024.jpeg){: width="3420" height="1891"}
 
 ### Arbeiten, wo andere Urlaub machen
 Inzwischen ist das Wasser auch Teil meines Alltags geworden.  
