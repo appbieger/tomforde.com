@@ -15,3 +15,8 @@ bookshop-live.js
 .DS_Store
 site/.bundle
 .bundle
+
+# Auto Claude data directory
+.auto-claude/
+.auto-claude-status
+.claude_settings.json

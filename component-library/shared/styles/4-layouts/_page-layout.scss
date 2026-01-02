@@ -244,7 +244,8 @@
 		&.share__facebook,
 		&.share__twitter,
 		&.share__linkedin,
-		&.share__pinterest {
+		&.share__pinterest,
+		&.share__whatsapp {
 			background: $background-color-alt;
 
 			&:hover {
@@ -273,6 +274,12 @@
 			color: #bd081c;
 			&:hover {
 				background: #bd081c;
+			}
+		}
+		&.share__whatsapp {
+			color: #25D366;
+			&:hover {
+				background: #25D366;
 			}
 		}
 	}
