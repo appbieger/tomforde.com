@@ -1,0 +1,9 @@
+{
+  "sourceType": "ideation",
+  "ideationType": "code_quality",
+  "ideaId": "cq-002",
+  "rationale": "Duplicated CSS patterns make maintenance difficult. When the brand gradient needs to change, developers must update multiple files, increasing the risk of inconsistencies.",
+  "category": "refactoring",
+  "codeQualitySeverity": "minor",
+  "priority": "medium"
+}
