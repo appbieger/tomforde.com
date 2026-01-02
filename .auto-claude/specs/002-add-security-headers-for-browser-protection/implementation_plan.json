@@ -52,10 +52,10 @@
           "subtask_id": "2.3",
           "title": "Add Referrer-Policy meta tag",
           "description": "Add Referrer-Policy meta tag with 'strict-origin-when-cross-origin' to control referrer information sent to external sites",
-          "status": "pending",
+          "status": "completed",
           "estimated_minutes": 10,
           "files_to_modify": ["site/_includes/security-headers.html"],
-          "notes": "Good balance between privacy and functionality"
+          "notes": "Referrer-Policy meta tag already implemented with 'strict-origin-when-cross-origin' value. Good balance between privacy and functionality. This was completed as part of subtask 2.1 when the security-headers.html file was initially created."
         },
         {
           "subtask_id": "2.4",
