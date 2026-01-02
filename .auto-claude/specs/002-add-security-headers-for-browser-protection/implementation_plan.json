@@ -95,10 +95,10 @@
           "subtask_id": "3.2",
           "title": "Update security-headers.html to use config",
           "description": "Modify security-headers.html to read from security.yml for flexible CSP configuration",
-          "status": "pending",
+          "status": "completed",
           "estimated_minutes": 15,
           "files_to_modify": ["site/_includes/security-headers.html"],
-          "notes": "Makes it easy to add new external resources without editing the include"
+          "notes": "Successfully updated security-headers.html to dynamically read from site/_data/security.yml using Liquid templating. CSP directives are built from arrays using join filter, referrer policy and permissions policy are configurable, and all headers can be toggled via enabled flags. This makes it easy to add new external resources without editing the include file."
         }
       ]
     },
