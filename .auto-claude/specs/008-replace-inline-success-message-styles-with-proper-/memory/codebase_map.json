@@ -1,0 +1,10 @@
+{
+  "discovered_files": {
+    "component-library/shared/styles/0-settings/_B_color-scheme.scss": {
+      "description": "Primary color is #1495a7 (teal). Design system uses SCSS variables like $primary-color, $border-color, $global-radius for consistency. Form inputs use 8px border-radius and $primary-color for focus states.",
+      "category": "design-system",
+      "discovered_at": "2026-01-02T22:08:54.430243+00:00"
+    }
+  },
+  "last_updated": "2026-01-02T22:08:54.430258+00:00"
+}

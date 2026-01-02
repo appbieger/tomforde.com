@@ -1,0 +1,117 @@
+{
+  "feature": "Replace inline success message styles with proper CSS classes",
+  "description": "Move the contact form success message inline styles to the SCSS file and improve visual consistency with the design system",
+  "created_at": "2026-01-02T22:04:58.787Z",
+  "updated_at": "2026-01-02T22:06:01.109Z",
+  "status": "in_progress",
+  "planStatus": "approved",
+  "workflow_type": "development",
+  "spec_file": "spec.md",
+  "phases": [
+    {
+      "id": "phase-1",
+      "name": "Add Success Message CSS Classes",
+      "description": "Add proper CSS classes to the contact-form.scss file using design system variables",
+      "subtasks": [
+        {
+          "id": "1.1",
+          "title": "Add __form-success styles to contact-form.scss",
+          "description": "Add styles for the success message container including padding, background, border, and border-radius using $primary-color and $global-radius variables. Use rgba() for a subtle tinted background that matches the primary color scheme.",
+          "status": "completed",
+          "filesToModify": [
+            "component-library/components/contact-form/contact-form.scss"
+          ],
+          "acceptanceCriteria": [
+            "Added __form-success styles with display:none by default",
+            "Added __form-success-box with padding, background using rgba($primary-color), border-radius: 8px, margin-bottom: 20px",
+            "Added __form-success-title with proper color, font-weight, and margin",
+            "Added __form-success-message with color and margin: 0",
+            "Used $primary-color or complementary color instead of hardcoded green values"
+          ],
+          "notes": "Added all success message CSS classes to contact-form.scss: __form-success (display: none), __form-success-box (with padding, rgba background, border, border-radius), __form-success-title (with color, font-weight, margin), and __form-success-message (with color and margin). All styles use $primary-color for consistency with the design system.",
+          "updated_at": "2026-01-02T22:10:39.547956+00:00"
+        }
+      ]
+    },
+    {
+      "id": "phase-2",
+      "name": "Update HTML to Use CSS Classes",
+      "description": "Remove inline styles from the HTML and replace with the new CSS classes",
+      "subtasks": [
+        {
+          "id": "2.1",
+          "title": "Remove inline styles from contact-form.jekyll.html",
+          "description": "Replace inline style attributes on lines 15-20 with CSS class names. Add {{c}}__form-success-box, {{c}}__form-success-title, and {{c}}__form-success-message classes to the respective elements.",
+          "status": "pending",
+          "filesToModify": [
+            "component-library/components/contact-form/contact-form.jekyll.html"
+          ],
+          "acceptanceCriteria": [
+            "Removed style=\"padding: 20px; background: #d4edda; ...\" from wrapper div",
+            "Removed style=\"color: #155724; ...\" from h3 element",
+            "Removed style=\"color: #155724; ...\" from p element",
+            "Added {{c}}__form-success-box class to wrapper div",
+            "Added {{c}}__form-success-title class to h3 element",
+            "Added {{c}}__form-success-message class to p element",
+            "Kept style=\"display: none;\" on parent as it is controlled by JavaScript"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "phase-3",
+      "name": "Verification and Testing",
+      "description": "Verify the SCSS compiles correctly and styles are applied properly",
+      "subtasks": [
+        {
+          "id": "3.1",
+          "title": "Verify SCSS compilation",
+          "description": "Build the project to ensure the SCSS compiles without errors and the new styles are included in the output CSS",
+          "status": "pending",
+          "filesToModify": [],
+          "acceptanceCriteria": [
+            "SCSS compiles without errors",
+            "No warnings related to undefined variables",
+            "CSS output includes the new success message classes"
+          ]
+        }
+      ]
+    }
+  ],
+  "technicalNotes": {
+    "currentIssue": "Success message uses inline styles with hardcoded green colors (#d4edda, #c3e6cb, #155724) that don't match the site's design system",
+    "solution": "Replace hardcoded colors with $primary-color based styles for visual consistency",
+    "colorMapping": {
+      "current": {
+        "background": "#d4edda (light green)",
+        "border": "#c3e6cb (green)",
+        "text": "#155724 (dark green)"
+      },
+      "proposed": {
+        "background": "rgba($primary-color, 0.1) - subtle teal tint matching primary",
+        "border": "rgba($primary-color, 0.3) - visible teal border",
+        "text": "darken($primary-color, 15%) - readable teal text"
+      }
+    },
+    "existingPatterns": {
+      "borderRadius": "8px used on form inputs, $global-radius is 16px",
+      "transitions": "$global-transition: all .35s",
+      "inputFocus": "Uses $primary-color for focus states"
+    }
+  },
+  "services_involved": [
+    "component-library/components/contact-form"
+  ],
+  "final_acceptance": [
+    "No inline styles remain on success message elements",
+    "Success message uses design system colors ($primary-color)",
+    "Visual appearance is consistent with site design",
+    "SCSS compiles without errors"
+  ],
+  "qaSignoff": {
+    "status": "pending",
+    "testsPassed": "",
+    "issues": ""
+  },
+  "last_updated": "2026-01-02T22:10:39.547966+00:00"
+}
