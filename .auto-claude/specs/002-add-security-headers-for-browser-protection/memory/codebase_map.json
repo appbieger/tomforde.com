@@ -1,0 +1,15 @@
+{
+  "discovered_files": {
+    "site/_includes/head.html": {
+      "description": "External resources loaded: Google Fonts (fonts.googleapis.com), Ionicons from unpkg.com, PhotoSwipe CSS from unpkg.com. All need to be whitelisted in CSP.",
+      "category": "external-resources",
+      "discovered_at": "2026-01-02T22:06:21.912264+00:00"
+    },
+    "site/_layouts/default.html": {
+      "description": "PhotoSwipe JS loaded from unpkg.com via ES modules (import statement). Google Analytics loaded conditionally from googletagmanager.com. Both require script-src CSP allowlist.",
+      "category": "external-resources",
+      "discovered_at": "2026-01-02T22:06:56.636226+00:00"
+    }
+  },
+  "last_updated": "2026-01-02T22:06:56.636232+00:00"
+}

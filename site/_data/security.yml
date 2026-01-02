@@ -1,0 +1,110 @@
+# Security Headers Configuration
+# Toggle security features and manage Content Security Policy settings
+
+# Enable/Disable Security Features
+enabled:
+  content_security_policy: true
+  referrer_policy: true
+  permissions_policy: true
+
+# Content Security Policy (CSP) Configuration
+# Defines which resources are allowed to be loaded and executed
+csp:
+  # Default source for any directive not explicitly defined
+  default_src:
+    - "'self'"
+
+  # JavaScript sources
+  script_src:
+    - "'self'"
+    - "'unsafe-inline'"  # Required for inline scripts
+    - "unpkg.com"  # PhotoSwipe, Ionicons
+    - "www.googletagmanager.com"  # Google Tag Manager
+    - "www.google-analytics.com"  # Google Analytics
+    - "*.disqus.com"  # Disqus comments (optional)
+
+  # CSS/Stylesheet sources
+  style_src:
+    - "'self'"
+    - "'unsafe-inline'"  # Required for inline styles
+    - "fonts.googleapis.com"  # Google Fonts CSS
+    - "unpkg.com"  # PhotoSwipe, Ionicons CSS
+
+  # Font sources
+  font_src:
+    - "'self'"
+    - "fonts.gstatic.com"  # Google Fonts files
+
+  # Image sources
+  img_src:
+    - "'self'"
+    - "data:"  # Data URIs for inline images
+    - "https:"  # Allow HTTPS images from any domain
+
+  # AJAX/Fetch/WebSocket sources
+  connect_src:
+    - "'self'"
+    - "www.google-analytics.com"  # Analytics beacons
+    - "formspree.io"  # Contact form submission
+
+  # Clickjacking protection (may not work in meta tags - requires HTTP header)
+  frame_ancestors:
+    - "'self'"
+
+# Referrer Policy Configuration
+# Controls how much referrer information is sent with requests
+# Options: no-referrer, no-referrer-when-downgrade, origin,
+#          origin-when-cross-origin, same-origin, strict-origin,
+#          strict-origin-when-cross-origin, unsafe-url
+referrer_policy: "strict-origin-when-cross-origin"
+
+# Permissions Policy Configuration
+# Restricts browser features that the site doesn't need
+# Format: feature=() disables the feature for all origins
+permissions_policy:
+  camera: "()"
+  microphone: "()"
+  geolocation: "()"
+  interest_cohort: "()"  # Disable FLoC tracking
+  payment: "()"
+  usb: "()"
+  magnetometer: "()"
+  gyroscope: "()"
+  accelerometer: "()"
+  ambient_light_sensor: "()"
+  autoplay: "()"
+  display_capture: "()"
+
+# External Resources Documentation
+# This section documents all external resources used by the site
+# Update this when adding new external dependencies
+external_resources:
+  - domain: "fonts.googleapis.com"
+    usage: "Google Fonts CSS"
+    required_for: "Typography"
+  - domain: "fonts.gstatic.com"
+    usage: "Google Fonts files"
+    required_for: "Typography"
+  - domain: "unpkg.com"
+    usage: "Ionicons CSS/fonts, PhotoSwipe library"
+    required_for: "Icons and image lightbox"
+  - domain: "www.googletagmanager.com"
+    usage: "Google Tag Manager"
+    required_for: "Analytics"
+  - domain: "www.google-analytics.com"
+    usage: "Google Analytics tracking"
+    required_for: "Site analytics"
+  - domain: "formspree.io"
+    usage: "Contact form backend"
+    required_for: "Contact form submissions"
+  - domain: "*.disqus.com"
+    usage: "Disqus comments platform"
+    required_for: "Comments (optional)"
+
+# Notes for Maintainers
+# - To add a new external resource, add its domain to the appropriate CSP directive above
+# - Use 'self' for same-origin resources
+# - Use 'unsafe-inline' only when necessary (inline scripts/styles)
+# - Use 'unsafe-eval' only if absolutely required (NOT recommended)
+# - Test changes locally before deploying to production
+# - Check browser console for CSP violation errors after changes

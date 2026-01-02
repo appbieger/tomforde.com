@@ -1,15 +1,25 @@
+<!DOCTYPE html>
+<html lang="en">
 <head>
   <meta charset="utf-8">
-  {% include security-headers.html %}
+  <!-- Security Headers for Browser Protection -->
+<!-- Content Security Policy -->
+<meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self' 'unsafe-inline' unpkg.com www.googletagmanager.com www.google-analytics.com *.disqus.com; style-src 'self' 'unsafe-inline' fonts.googleapis.com unpkg.com; font-src 'self' fonts.gstatic.com; img-src 'self' data: https:; connect-src 'self' www.google-analytics.com formspree.io; frame-ancestors 'self'">
+
+<!-- Referrer Policy - balance between privacy and functionality -->
+<meta name="referrer" content="strict-origin-when-cross-origin">
+
+<!-- Permissions Policy - disable unnecessary browser features -->
+<meta http-equiv="Permissions-Policy" content="camera=(), microphone=(), geolocation=(), interest-cohort=(), payment=(), usb=(), magnetometer=(), gyroscope=(), accelerometer=(), ambient-light-sensor=(), autoplay=(), display-capture=()">
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <meta name="viewport" content="width=device-width, initial-scale=1">
 
-  {% include seo.html %}
+  <!-- SEO tags would be here -->
 
   <!-- Favicon -->
   <link rel="icon" type="image/x-icon" href="/favicon.ico">
   <link rel="shortcut icon" type="image/x-icon" href="/favicon.ico">
-  
+
   <!-- Apple Touch Icons -->
   <link rel="apple-touch-icon" sizes="180x180" href="/favicon.ico">
   <link rel="icon" type="image/png" sizes="32x32" href="/favicon.ico">
@@ -27,3 +37,7 @@
   <!-- PhotoSwipe Dynamic Caption CSS -->
   <link rel="stylesheet" href="https://unpkg.com/photoswipe-dynamic-caption-plugin/photoswipe-dynamic-caption-plugin.css">
 </head>
+<body>
+  <!-- Page content -->
+</body>
+</html>
