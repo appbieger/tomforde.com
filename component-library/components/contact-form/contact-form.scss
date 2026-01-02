@@ -68,4 +68,27 @@
 			box-shadow: 0px 4px 10px rgba($primary-color, 0.25);
 		}
 	}
+
+	&__form-success {
+		display: none;
+	}
+
+	&__form-success-box {
+		padding: 20px;
+		background: rgba($primary-color, 0.1);
+		border: 1px solid rgba($primary-color, 0.3);
+		border-radius: 8px;
+		margin-bottom: 20px;
+	}
+
+	&__form-success-title {
+		color: darken($primary-color, 15%);
+		font-weight: 600;
+		margin: 0 0 10px 0;
+	}
+
+	&__form-success-message {
+		color: darken($primary-color, 15%);
+		margin: 0;
+	}
 }
