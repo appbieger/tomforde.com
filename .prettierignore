@@ -1,0 +1,12 @@
+# Vendor files (third-party bundled libraries)
+site/js/scripts.js
+
+# Build artifacts
+_site
+.jekyll-cache
+
+# Dependencies
+node_modules
+
+# Package lock file
+package-lock.json

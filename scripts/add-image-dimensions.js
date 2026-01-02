@@ -3,7 +3,7 @@
 /**
  * Script to add image dimensions to filenames
  * Usage: node scripts/add-image-dimensions.js [directory]
- * 
+ *
  * Renames image files to include dimensions: filename_WIDTHxHEIGHT.ext
  * Example: Bauernhaus.jpeg -> Bauernhaus_1920x1080.jpeg
  */
@@ -43,9 +43,11 @@ function hasDimensions(filename) {
  */
 function isInGalleryDir(filePath) {
   const normalizedPath = filePath.replace(/\\/g, '/');
-  return GALLERY_DIRS.some(galleryDir => {
-    return normalizedPath.includes(`/images/${galleryDir}/`) || 
-           normalizedPath.includes(`images/${galleryDir}/`);
+  return GALLERY_DIRS.some((galleryDir) => {
+    return (
+      normalizedPath.includes(`/images/${galleryDir}/`) ||
+      normalizedPath.includes(`images/${galleryDir}/`)
+    );
   });
 }
 
@@ -57,7 +59,7 @@ function extractDimensions(filename) {
   if (match) {
     return {
       width: parseInt(match[1], 10),
-      height: parseInt(match[2], 10)
+      height: parseInt(match[2], 10),
     };
   }
   return null;
@@ -70,32 +72,31 @@ async function processImage(filePath) {
   const ext = path.extname(filePath).toLowerCase();
   const dir = path.dirname(filePath);
   const basename = path.basename(filePath, ext);
-  
+
   // Skip if not in a gallery directory
   if (!isInGalleryDir(filePath)) {
     console.log(`⊘ Übersprungen (nicht in Galerie): ${path.basename(filePath)}`);
     return;
   }
-  
+
   // Skip if already has dimensions
   if (hasDimensions(filePath)) {
     console.log(`✓ Übersprungen (hat bereits Dimensionen): ${path.basename(filePath)}`);
     return;
   }
-  
+
   try {
     // Get image dimensions
     const dimensions = sizeOf(filePath);
     const { width, height } = dimensions;
-    
+
     // Create new filename with dimensions
     const newBasename = `${basename}_${width}x${height}${ext}`;
     const newFilePath = path.join(dir, newBasename);
-    
+
     // Rename file
     await rename(filePath, newFilePath);
     console.log(`✓ Umbenannt: ${path.basename(filePath)} → ${newBasename}`);
-    
   } catch (error) {
     console.error(`✗ Fehler bei ${path.basename(filePath)}:`, error.message);
   }
@@ -107,10 +108,10 @@ async function processImage(filePath) {
 async function processDirectory(dirPath) {
   try {
     const entries = await readdir(dirPath, { withFileTypes: true });
-    
+
     for (const entry of entries) {
       const fullPath = path.join(dirPath, entry.name);
-      
+
       if (entry.isDirectory()) {
         // Recursively process subdirectories
         await processDirectory(fullPath);
@@ -131,14 +132,14 @@ async function processDirectory(dirPath) {
  */
 async function main() {
   await loadImageSize();
-  
+
   const targetDir = process.argv[2] || 'site/images';
   const fullPath = path.resolve(process.cwd(), targetDir);
-  
+
   console.log('🖼️  Bild-Dimensions-Processor');
   console.log('═'.repeat(50));
   console.log(`Verzeichnis: ${fullPath}\n`);
-  
+
   // Check if directory exists
   try {
     const stats = await stat(fullPath);
@@ -150,18 +151,16 @@ async function main() {
     console.error(`✗ Fehler: Verzeichnis ${fullPath} nicht gefunden`);
     process.exit(1);
   }
-  
+
   // Process all images
   await processDirectory(fullPath);
-  
+
   console.log('\n' + '═'.repeat(50));
   console.log('✓ Fertig!');
 }
 
 // Run main function
-main().catch(error => {
+main().catch((error) => {
   console.error('✗ Unerwarteter Fehler:', error);
   process.exit(1);
 });
-
-

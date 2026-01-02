@@ -11,6 +11,10 @@
     "jekyll": "BUNDLE_GEMFILE=site/Gemfile bundle exec jekyll serve --source site --port 6060 --trace --unpublished",
     "start": "cd site && bundle exec jekyll serve --port 6060",
     "live": "cd site && bundle exec jekyll serve --port 6060 --livereload",
+    "lint": "eslint .",
+    "lint:fix": "eslint . --fix",
+    "format": "prettier --write .",
+    "format:check": "prettier --check .",
     "images:add-dimensions": "node scripts/add-image-dimensions.js",
     "images:stella": "node scripts/add-image-dimensions.js site/images/stella",
     "images:optimize": "node scripts/optimize-images.js",
@@ -30,7 +34,12 @@
     "@bookshop/browser": "3.9.0",
     "@bookshop/jekyll-engine": "3.9.0",
     "@bookshop/live": "3.9.0",
-    "npm-run-all": "^4.1.5"
+    "eslint": "^9.17.0",
+    "eslint-config-prettier": "^9.1.0",
+    "eslint-plugin-prettier": "^5.2.1",
+    "globals": "^15.13.0",
+    "npm-run-all": "^4.1.5",
+    "prettier": "^3.4.2"
   },
   "dependencies": {
     "@bookshop/generate": "3.9.0",

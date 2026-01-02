@@ -1,5 +1,5 @@
 module.exports = {
-    engines: {
-        "@bookshop/jekyll-engine": {}
-    }
-}
+  engines: {
+    '@bookshop/jekyll-engine': {},
+  },
+};
