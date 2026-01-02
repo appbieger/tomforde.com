@@ -276,6 +276,12 @@
 				background: #bd081c;
 			}
 		}
+		&.share__whatsapp {
+			color: #25D366;
+			&:hover {
+				background: #25D366;
+			}
+		}
 	}
 
 	@media only screen and (max-width: $mobile) {
