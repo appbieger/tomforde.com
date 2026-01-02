@@ -22,9 +22,9 @@
 - Must use HTML meta tags for security headers
 - HSTS already provided by GitHub Pages
 
-## Phase 2: Implement Security Meta Tags (Pending)
-- [ ] 2.1 Create security headers include file
-- [ ] 2.2 Configure Content-Security-Policy
+## Phase 2: Implement Security Meta Tags (In Progress)
+- [x] 2.1 Create security headers include file
+- [x] 2.2 Configure Content-Security-Policy
 - [ ] 2.3 Add Referrer-Policy meta tag
 - [ ] 2.4 Add Permissions-Policy meta tag
 - [ ] 2.5 Include security headers in head.html
@@ -56,4 +56,14 @@ Last Updated: 2026-01-02
   - Disqus (disqus.com, c.disqus.com for comments)
 - Added Referrer-Policy: strict-origin-when-cross-origin
 - Added Permissions-Policy to disable unnecessary features (camera, microphone, geolocation, interest-cohort)
+- Committed changes with proper git message
+
+[2026-01-02] Subtask 2.2 - COMPLETED
+- Updated Content-Security-Policy directives to final specification
+- Simplified Disqus sources to use *.disqus.com wildcard only (removed disqus.com and c.disqus.com)
+- Removed c.disqus.com from style-src directive
+- Removed frame-src directive (Disqus frames)
+- Removed form-action directive
+- Added frame-ancestors 'self' for clickjacking protection
+- Note: frame-ancestors may not work in meta tags due to GitHub Pages limitations (only works via HTTP header)
 - Committed changes with proper git message

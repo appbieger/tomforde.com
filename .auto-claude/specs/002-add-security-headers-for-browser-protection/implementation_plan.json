@@ -43,10 +43,10 @@
           "subtask_id": "2.2",
           "title": "Configure Content-Security-Policy",
           "description": "Define CSP directives: default-src 'self'; script-src 'self' 'unsafe-inline' unpkg.com www.googletagmanager.com www.google-analytics.com *.disqus.com; style-src 'self' 'unsafe-inline' fonts.googleapis.com unpkg.com; font-src 'self' fonts.gstatic.com; img-src 'self' data: https:; connect-src 'self' www.google-analytics.com formspree.io; frame-ancestors 'self'",
-          "status": "pending",
+          "status": "completed",
           "estimated_minutes": 45,
           "files_to_modify": ["site/_includes/security-headers.html"],
-          "notes": "CSP must allow inline scripts (Google Analytics, PhotoSwipe init) and styles. frame-ancestors replaces X-Frame-Options"
+          "notes": "Updated CSP meta tag with specified directives: removed redundant Disqus domains (keeping only *.disqus.com wildcard), removed frame-src and form-action directives, added frame-ancestors 'self' for clickjacking protection. Note: frame-ancestors may not work in meta tags per GitHub Pages limitations."
         },
         {
           "subtask_id": "2.3",
