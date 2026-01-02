@@ -70,10 +70,10 @@
           "subtask_id": "2.5",
           "title": "Include security headers in head.html",
           "description": "Add {% include security-headers.html %} to the head.html include file near the top after charset",
-          "status": "pending",
+          "status": "completed",
           "estimated_minutes": 5,
           "files_to_modify": ["site/_includes/head.html"],
-          "notes": "Security headers should be placed early in the head section"
+          "notes": "Successfully added {% include security-headers.html %} to head.html right after the charset meta tag (line 3). The security headers will now be included in all pages of the site."
         }
       ]
     },

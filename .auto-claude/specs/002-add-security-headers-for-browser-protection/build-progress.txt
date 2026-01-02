@@ -22,12 +22,12 @@
 - Must use HTML meta tags for security headers
 - HSTS already provided by GitHub Pages
 
-## Phase 2: Implement Security Meta Tags (In Progress)
+## Phase 2: Implement Security Meta Tags (Completed)
 - [x] 2.1 Create security headers include file
 - [x] 2.2 Configure Content-Security-Policy
 - [x] 2.3 Add Referrer-Policy meta tag
 - [x] 2.4 Add Permissions-Policy meta tag
-- [ ] 2.5 Include security headers in head.html
+- [x] 2.5 Include security headers in head.html
 
 ## Phase 3: Configuration & Documentation (Pending)
 - [ ] 3.1 Add security settings to _data
@@ -83,5 +83,13 @@ Last Updated: 2026-01-02
   - Media: autoplay, display-capture (screen recording)
 - Final policy: camera=(), microphone=(), geolocation=(), interest-cohort=(), payment=(), usb=(), magnetometer=(), gyroscope=(), accelerometer=(), ambient-light-sensor=(), autoplay=(), display-capture=()
 - Provides defense-in-depth by restricting browser APIs not needed by a personal blog/portfolio site
+- Updated implementation plan to mark as completed
+- Committed changes with proper git message
+
+[2026-01-02] Subtask 2.5 - COMPLETED
+- Added {% include security-headers.html %} to site/_includes/head.html
+- Placed the include on line 3, right after the charset meta tag
+- Security headers will now be included in all pages of the site
+- Phase 2 (Implement Security Meta Tags) is now complete
 - Updated implementation plan to mark as completed
 - Committed changes with proper git message
