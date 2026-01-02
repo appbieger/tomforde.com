@@ -24,3 +24,8 @@
   width: 1px;
   word-wrap: normal !important;
 }
+
+// Brand gradient
+@mixin brand-gradient($intensity: 167%) {
+  background: linear-gradient(90deg, $primary-color 0%, $secondary-color $intensity);
+}
