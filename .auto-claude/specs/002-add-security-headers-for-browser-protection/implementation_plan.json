@@ -61,10 +61,10 @@
           "subtask_id": "2.4",
           "title": "Add Permissions-Policy meta tag",
           "description": "Add Permissions-Policy to restrict browser features like camera, microphone, geolocation that the site doesn't need",
-          "status": "pending",
+          "status": "completed",
           "estimated_minutes": 10,
           "files_to_modify": ["site/_includes/security-headers.html"],
-          "notes": "Disable unnecessary browser APIs for defense in depth"
+          "notes": "Enhanced Permissions-Policy meta tag with comprehensive browser feature restrictions: camera, microphone, geolocation, interest-cohort (FLoC), payment, usb, magnetometer, gyroscope, accelerometer, ambient-light-sensor, autoplay, and display-capture. Provides defense-in-depth by restricting browser APIs not needed by the site."
         },
         {
           "subtask_id": "2.5",

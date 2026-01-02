@@ -26,7 +26,7 @@
 - [x] 2.1 Create security headers include file
 - [x] 2.2 Configure Content-Security-Policy
 - [x] 2.3 Add Referrer-Policy meta tag
-- [ ] 2.4 Add Permissions-Policy meta tag
+- [x] 2.4 Add Permissions-Policy meta tag
 - [ ] 2.5 Include security headers in head.html
 
 ## Phase 3: Configuration & Documentation (Pending)
@@ -74,3 +74,14 @@ Last Updated: 2026-01-02
 - Policy provides good balance between privacy and functionality
 - Updated implementation plan to mark as completed
 - Committed plan update with proper git message
+
+[2026-01-02] Subtask 2.4 - COMPLETED
+- Enhanced Permissions-Policy meta tag with comprehensive browser feature restrictions
+- Added restrictions beyond the initial camera, microphone, geolocation, interest-cohort:
+  - Payment: payment (no payment processing needed)
+  - Hardware: usb, magnetometer, gyroscope, accelerometer, ambient-light-sensor
+  - Media: autoplay, display-capture (screen recording)
+- Final policy: camera=(), microphone=(), geolocation=(), interest-cohort=(), payment=(), usb=(), magnetometer=(), gyroscope=(), accelerometer=(), ambient-light-sensor=(), autoplay=(), display-capture=()
+- Provides defense-in-depth by restricting browser APIs not needed by a personal blog/portfolio site
+- Updated implementation plan to mark as completed
+- Committed changes with proper git message
