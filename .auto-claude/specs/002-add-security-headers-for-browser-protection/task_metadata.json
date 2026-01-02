@@ -1,0 +1,10 @@
+{
+  "sourceType": "ideation",
+  "ideationType": "security_hardening",
+  "ideaId": "sec-002",
+  "rationale": "Security headers are a critical defense layer that prevent XSS attacks (CSP), clickjacking (X-Frame-Options), MIME sniffing attacks (X-Content-Type-Options), and protocol downgrade attacks (HSTS). OWASP recommends implementing these for all web applications.",
+  "category": "security",
+  "securitySeverity": "medium",
+  "impact": "medium",
+  "priority": "medium"
+}
