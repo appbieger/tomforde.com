@@ -86,10 +86,10 @@
           "subtask_id": "3.1",
           "title": "Add security settings to _data",
           "description": "Create site/_data/security.yml with toggleable security settings and CSP configuration options",
-          "status": "pending",
+          "status": "completed",
           "estimated_minutes": 20,
           "files_to_modify": ["site/_data/security.yml"],
-          "notes": "Allow easy enable/disable of security features without modifying templates"
+          "notes": "Created comprehensive security.yml with toggleable security features (content_security_policy, referrer_policy, permissions_policy), organized CSP directives by type (default-src, script-src, style-src, font-src, img-src, connect-src, frame-ancestors), documented all external resources with usage notes, and added maintainer guidance. File follows Jekyll data patterns and makes security configuration easy to maintain."
         },
         {
           "subtask_id": "3.2",

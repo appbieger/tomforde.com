@@ -29,8 +29,8 @@
 - [x] 2.4 Add Permissions-Policy meta tag
 - [x] 2.5 Include security headers in head.html
 
-## Phase 3: Configuration & Documentation (Pending)
-- [ ] 3.1 Add security settings to _data
+## Phase 3: Configuration & Documentation (In Progress)
+- [x] 3.1 Add security settings to _data
 - [ ] 3.2 Update security-headers.html to use config
 
 ## Phase 4: Testing & Validation (Pending)
@@ -91,5 +91,21 @@ Last Updated: 2026-01-02
 - Placed the include on line 3, right after the charset meta tag
 - Security headers will now be included in all pages of the site
 - Phase 2 (Implement Security Meta Tags) is now complete
+- Updated implementation plan to mark as completed
+- Committed changes with proper git message
+
+[2026-01-02] Subtask 3.1 - COMPLETED
+- Created site/_data/security.yml with comprehensive configuration structure
+- Implemented toggleable security features:
+  - content_security_policy: true/false
+  - referrer_policy: true/false
+  - permissions_policy: true/false
+- Organized CSP directives by type with arrays of allowed sources:
+  - default_src, script_src, style_src, font_src, img_src, connect_src, frame_ancestors
+- All external resources documented with domain, usage, and required_for fields
+- Added configurable referrer_policy setting (strict-origin-when-cross-origin)
+- Added configurable permissions_policy with all restricted features
+- Included maintainer notes and guidance for adding new external resources
+- File follows Jekyll data file patterns and makes security config maintainable
 - Updated implementation plan to mark as completed
 - Committed changes with proper git message
