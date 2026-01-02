@@ -1,9 +1,15 @@
 <!-- Security Headers for Browser Protection -->
+{%- if site.data.security.enabled.content_security_policy -%}
 <!-- Content Security Policy -->
-<meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self' 'unsafe-inline' unpkg.com www.googletagmanager.com www.google-analytics.com *.disqus.com; style-src 'self' 'unsafe-inline' fonts.googleapis.com unpkg.com; font-src 'self' fonts.gstatic.com; img-src 'self' data: https:; connect-src 'self' www.google-analytics.com formspree.io; frame-ancestors 'self'">
+<meta http-equiv="Content-Security-Policy" content="default-src {{ site.data.security.csp.default_src | join: ' ' }}; script-src {{ site.data.security.csp.script_src | join: ' ' }}; style-src {{ site.data.security.csp.style_src | join: ' ' }}; font-src {{ site.data.security.csp.font_src | join: ' ' }}; img-src {{ site.data.security.csp.img_src | join: ' ' }}; connect-src {{ site.data.security.csp.connect_src | join: ' ' }}; frame-ancestors {{ site.data.security.csp.frame_ancestors | join: ' ' }}">
+{%- endif -%}
 
+{%- if site.data.security.enabled.referrer_policy -%}
 <!-- Referrer Policy - balance between privacy and functionality -->
-<meta name="referrer" content="strict-origin-when-cross-origin">
+<meta name="referrer" content="{{ site.data.security.referrer_policy }}">
+{%- endif -%}
 
+{%- if site.data.security.enabled.permissions_policy -%}
 <!-- Permissions Policy - disable unnecessary browser features -->
-<meta http-equiv="Permissions-Policy" content="camera=(), microphone=(), geolocation=(), interest-cohort=(), payment=(), usb=(), magnetometer=(), gyroscope=(), accelerometer=(), ambient-light-sensor=(), autoplay=(), display-capture=()">
+<meta http-equiv="Permissions-Policy" content="camera={{ site.data.security.permissions_policy.camera }}, microphone={{ site.data.security.permissions_policy.microphone }}, geolocation={{ site.data.security.permissions_policy.geolocation }}, interest-cohort={{ site.data.security.permissions_policy.interest_cohort }}, payment={{ site.data.security.permissions_policy.payment }}, usb={{ site.data.security.permissions_policy.usb }}, magnetometer={{ site.data.security.permissions_policy.magnetometer }}, gyroscope={{ site.data.security.permissions_policy.gyroscope }}, accelerometer={{ site.data.security.permissions_policy.accelerometer }}, ambient-light-sensor={{ site.data.security.permissions_policy.ambient_light_sensor }}, autoplay={{ site.data.security.permissions_policy.autoplay }}, display-capture={{ site.data.security.permissions_policy.display_capture }}">
+{%- endif -%}
