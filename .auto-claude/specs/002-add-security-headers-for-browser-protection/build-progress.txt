@@ -1,0 +1,59 @@
+# Build Progress: Add Security Headers for Browser Protection
+
+## Status: Planning Complete
+
+## Phase 1: Analysis & Planning
+- [x] 1.1 Document all external resources
+
+### External Resources Identified:
+| Domain | Usage | CSP Directive |
+|--------|-------|---------------|
+| fonts.googleapis.com | Google Fonts CSS | style-src |
+| fonts.gstatic.com | Google Fonts files | font-src |
+| unpkg.com | Ionicons CSS, PhotoSwipe | style-src, script-src |
+| www.googletagmanager.com | Google Tag Manager | script-src |
+| www.google-analytics.com | Google Analytics | script-src, connect-src, img-src |
+| formspree.io | Contact form | form-action, connect-src |
+| *.disqus.com | Disqus comments | script-src, frame-src |
+
+### Hosting Constraints:
+- Site deployed to GitHub Pages
+- Cannot set HTTP headers (no _headers file support)
+- Must use HTML meta tags for security headers
+- HSTS already provided by GitHub Pages
+
+## Phase 2: Implement Security Meta Tags (Pending)
+- [ ] 2.1 Create security headers include file
+- [ ] 2.2 Configure Content-Security-Policy
+- [ ] 2.3 Add Referrer-Policy meta tag
+- [ ] 2.4 Add Permissions-Policy meta tag
+- [ ] 2.5 Include security headers in head.html
+
+## Phase 3: Configuration & Documentation (Pending)
+- [ ] 3.1 Add security settings to _data
+- [ ] 3.2 Update security-headers.html to use config
+
+## Phase 4: Testing & Validation (Pending)
+- [ ] 4.1 Local build and test
+- [ ] 4.2 Verify all site features work
+- [ ] 4.3 Document security headers in SECURITY.md
+
+## Notes
+- Inline scripts required for Google Analytics and PhotoSwipe init
+- 'unsafe-inline' needed for script-src and style-src
+- frame-ancestors directive not available via meta tag
+
+---
+Last Updated: 2026-01-02
+
+[$(date -u +"%Y-%m-%d %H:%M:%S UTC")] Subtask 2.1 - COMPLETED
+- Created site/_includes/security-headers.html with all security meta tags
+- Implemented Content-Security-Policy with comprehensive directives for:
+  - Google Fonts (fonts.googleapis.com, fonts.gstatic.com)
+  - unpkg.com (Ionicons, PhotoSwipe CSS/JS)
+  - Google Analytics (googletagmanager.com, google-analytics.com)
+  - Formspree (formspree.io for form submissions)
+  - Disqus (disqus.com, c.disqus.com for comments)
+- Added Referrer-Policy: strict-origin-when-cross-origin
+- Added Permissions-Policy to disable unnecessary features (camera, microphone, geolocation, interest-cohort)
+- Committed changes with proper git message
