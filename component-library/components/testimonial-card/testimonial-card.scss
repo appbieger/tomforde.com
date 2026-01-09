@@ -5,7 +5,7 @@
 		padding: 32px;
 		border-radius: 16px;
 		color: $white;
-		background: linear-gradient(90deg, $primary-color 0%, $secondary-color 167%);
+		@include brand-gradient();
 	}
 
 	&__client-meta {

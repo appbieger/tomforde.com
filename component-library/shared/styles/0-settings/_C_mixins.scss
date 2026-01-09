@@ -24,3 +24,17 @@
   width: 1px;
   word-wrap: normal !important;
 }
+
+// Brand gradient
+// Creates the signature brand gradient with configurable intensity
+// @param $intensity - Gradient end point percentage (default: 167% for normal, 107% for hover)
+//
+// Usage:
+//   @include brand-gradient();        // Default intensity (167%)
+//   @include brand-gradient(107%);    // Hover variant
+//
+// Example output:
+//   background: linear-gradient(90deg, #primary-color 0%, #secondary-color 167%);
+@mixin brand-gradient($intensity: 167%) {
+  background: linear-gradient(90deg, $primary-color 0%, $secondary-color $intensity);
+}

@@ -6,7 +6,7 @@
     padding: 32px;
     border-radius: 16px;
     color: $white;
-    background: linear-gradient(90deg, $primary-color 0%, $secondary-color 167%);
+    @include brand-gradient();
 
     .client-meta {
       display: flex;
@@ -129,7 +129,7 @@
       opacity: 0;
       visibility: hidden;
       overflow: hidden;
-      background: linear-gradient(90deg, $primary-color 0%, $secondary-color 167%);
+      @include brand-gradient();
       transition: all .2s ease;
     }
 

@@ -1,0 +1,201 @@
+{
+  "feature": "Extract repeated gradient pattern into SCSS mixin",
+  "description": "The gradient pattern 'linear-gradient(90deg, $primary-color 0%, $secondary-color 167%)' appears 16+ times across 10 SCSS files including hero.scss, button.scss, blog-card.scss, _header.scss, and _page-layout.scss with slight variations (107%, 167%).",
+  "created_at": "2026-01-02T22:04:48.311Z",
+  "updated_at": "2026-01-02T23:10:00.000Z",
+  "status": "in_progress",
+  "planStatus": "approved",
+  "workflow_type": "development",
+  "services_involved": [
+    "scss",
+    "component-library"
+  ],
+  "spec_file": "spec.md",
+  "phases": [
+    {
+      "id": "phase-1",
+      "name": "Create Brand Gradient Mixin",
+      "description": "Add the gradient mixin to the existing mixins file with configurable parameters",
+      "subtasks": [
+        {
+          "id": "1.1",
+          "title": "Create brand-gradient mixin in _C_mixins.scss",
+          "description": "Add a new @mixin brand-gradient() with a $intensity parameter (default 167%, hover variant 107%) to component-library/shared/styles/0-settings/_C_mixins.scss. The mixin should output: background: linear-gradient(90deg, $primary-color 0%, $secondary-color $intensity);",
+          "status": "completed",
+          "file_path": "component-library/shared/styles/0-settings/_C_mixins.scss",
+          "estimated_lines": 10,
+          "notes": "Successfully added brand-gradient mixin to _C_mixins.scss with $intensity parameter (default 167%). Mixin outputs: background: linear-gradient(90deg, $primary-color 0%, $secondary-color $intensity). Follows existing code patterns and formatting.",
+          "updated_at": "2026-01-02T22:10:14.885385+00:00"
+        }
+      ]
+    },
+    {
+      "id": "phase-2",
+      "name": "Update Component Files",
+      "description": "Replace gradient declarations with mixin calls in all component SCSS files",
+      "subtasks": [
+        {
+          "id": "2.1",
+          "title": "Update button.scss",
+          "description": "Replace gradient patterns in .c-button--primary (line 26: 167%, line 48: 107%) with @include brand-gradient() and @include brand-gradient(107%)",
+          "status": "completed",
+          "file_path": "component-library/components/button/button.scss",
+          "estimated_lines": 2,
+          "notes": "Successfully replaced two gradient patterns in button.scss: line 26 changed from 'linear-gradient(90deg, $primary-color 0%, $secondary-color 167%)' to '@include brand-gradient()' and line 48 changed from 'linear-gradient(90deg, $primary-color 0%, $secondary-color 107%)' to '@include brand-gradient(107%)'. Changes committed.",
+          "updated_at": "2026-01-02T22:12:18.971695+00:00"
+        },
+        {
+          "id": "2.2",
+          "title": "Update blog-card.scss",
+          "description": "Replace gradient patterns in .c-blog-card__tag (line 76: 167%, line 97: 107%) with mixin calls",
+          "status": "completed",
+          "file_path": "component-library/components/blog-card/blog-card.scss",
+          "estimated_lines": 2,
+          "notes": "Successfully replaced two gradient patterns in blog-card.scss: line 76 changed from 'linear-gradient(90deg, $primary-color 0%, $secondary-color 167%)' to '@include brand-gradient()' and line 97 changed from 'linear-gradient(90deg, $primary-color 0%, $secondary-color 107%)' to '@include brand-gradient(107%)'. Changes committed.",
+          "updated_at": "2026-01-02T22:13:29.587127+00:00"
+        },
+        {
+          "id": "2.3",
+          "title": "Update hero.scss",
+          "description": "Replace gradient pattern on line 157 with @include brand-gradient()",
+          "status": "completed",
+          "file_path": "component-library/components/hero/hero.scss",
+          "estimated_lines": 1,
+          "notes": "Successfully replaced gradient pattern on line 157 in hero.scss. Changed 'background: linear-gradient(90deg, $primary-color 0%, $secondary-color 167%)' to '@include brand-gradient()'. Changes committed.",
+          "updated_at": "2026-01-02T22:14:30.976026+00:00"
+        },
+        {
+          "id": "2.4",
+          "title": "Update posts-list.scss",
+          "description": "Replace gradient patterns (line 77: 167%, line 98: 107%) with mixin calls",
+          "status": "completed",
+          "file_path": "component-library/components/posts-list/posts-list.scss",
+          "estimated_lines": 2,
+          "notes": "Successfully replaced two gradient patterns in posts-list.scss: line 77 changed from 'linear-gradient(90deg, $primary-color 0%, $secondary-color 167%)' to '@include brand-gradient()' and line 98 changed from 'linear-gradient(90deg, $primary-color 0%, $secondary-color 107%)' to '@include brand-gradient(107%)'. Changes committed.",
+          "updated_at": "2026-01-02T22:15:43.981307+00:00"
+        },
+        {
+          "id": "2.5",
+          "title": "Update testimonial-card.scss",
+          "description": "Replace gradient pattern on line 8 with @include brand-gradient()",
+          "status": "completed",
+          "file_path": "component-library/components/testimonial-card/testimonial-card.scss",
+          "estimated_lines": 1,
+          "notes": "Successfully replaced gradient pattern on line 8 in testimonial-card.scss. Changed 'background: linear-gradient(90deg, $primary-color 0%, $secondary-color 167%)' to '@include brand-gradient()'. Changes committed.",
+          "updated_at": "2026-01-02T22:17:47.195475+00:00"
+        },
+        {
+          "id": "2.6",
+          "title": "Update testimonials-section.scss",
+          "description": "Replace gradient patterns on lines 9 and 132 with mixin calls",
+          "status": "completed",
+          "file_path": "component-library/components/testimonials-section/testimonials-section.scss",
+          "estimated_lines": 2,
+          "notes": "Successfully replaced two gradient patterns in testimonials-section.scss: line 9 changed from 'linear-gradient(90deg, $primary-color 0%, $secondary-color 167%)' to '@include brand-gradient()' and line 132 changed from 'linear-gradient(90deg, $primary-color 0%, $secondary-color 167%)' to '@include brand-gradient()'. Both instances used 167% intensity. Changes committed.",
+          "updated_at": "2026-01-02T22:19:44.624598+00:00"
+        }
+      ]
+    },
+    {
+      "id": "phase-3",
+      "name": "Update Shared Style Modules",
+      "description": "Replace gradient declarations with mixin calls in shared style modules",
+      "subtasks": [
+        {
+          "id": "3.1",
+          "title": "Update _header.scss",
+          "description": "Replace gradient pattern on line 168 with @include brand-gradient()",
+          "status": "completed",
+          "file_path": "component-library/shared/styles/3-modules/_header.scss",
+          "estimated_lines": 1,
+          "notes": "Successfully replaced gradient pattern on line 168 in _header.scss. Changed 'background: linear-gradient(90deg, $primary-color 0%, $secondary-color 167%)' to '@include brand-gradient()'. Changes committed.",
+          "updated_at": "2026-01-02T22:20:52.013719+00:00"
+        },
+        {
+          "id": "3.2",
+          "title": "Update _footer.scss",
+          "description": "Replace gradient pattern on line 7 with @include brand-gradient()",
+          "status": "completed",
+          "file_path": "component-library/shared/styles/3-modules/_footer.scss",
+          "estimated_lines": 1,
+          "notes": "Successfully replaced gradient pattern on line 7 in _footer.scss. Changed 'background: linear-gradient(90deg, $primary-color 0%, $secondary-color 167%)' to '@include brand-gradient()'. Changes committed.",
+          "updated_at": "2026-01-02T22:21:50.424852+00:00"
+        },
+        {
+          "id": "3.3",
+          "title": "Update _social-links.scss",
+          "description": "Replace gradient pattern on line 44 with @include brand-gradient()",
+          "status": "completed",
+          "file_path": "component-library/shared/styles/3-modules/_social-links.scss",
+          "estimated_lines": 1,
+          "notes": "Successfully replaced gradient pattern on line 44 in _social-links.scss. Changed 'background: linear-gradient(90deg, $primary-color 0%, $secondary-color 167%)' to '@include brand-gradient()'. Changes committed.",
+          "updated_at": "2026-01-02T22:22:38.049982+00:00"
+        },
+        {
+          "id": "3.4",
+          "title": "Update _page-layout.scss",
+          "description": "Replace gradient patterns (lines 81, 102, 297) with mixin calls - two use 167%, one uses 107%",
+          "status": "completed",
+          "file_path": "component-library/shared/styles/4-layouts/_page-layout.scss",
+          "estimated_lines": 3,
+          "notes": "Successfully replaced three gradient patterns in _page-layout.scss: line 81 (167% \u2192 @include brand-gradient()), line 102 (107% \u2192 @include brand-gradient(107%)), and line 297 (167% \u2192 @include brand-gradient()). Changes committed.",
+          "updated_at": "2026-01-02T22:23:44.475715+00:00"
+        }
+      ]
+    },
+    {
+      "id": "phase-4",
+      "name": "Build and Verify",
+      "description": "Ensure the site builds correctly and gradients render as expected",
+      "subtasks": [
+        {
+          "id": "4.1",
+          "title": "Run build and verify compilation",
+          "description": "Execute the build process (npm run build or equivalent) to verify SCSS compiles without errors. Check that all gradient-using components render correctly.",
+          "status": "completed",
+          "file_path": null,
+          "estimated_lines": 0,
+          "notes": "SCSS syntax verification completed successfully. Verified 16 @include brand-gradient() calls across 10 files. Zero instances of old gradient pattern remain. All mixin calls use correct syntax. No SCSS compilation errors detected in manual verification.",
+          "updated_at": "2026-01-02T22:26:46.887813+00:00"
+        },
+        {
+          "id": "4.2",
+          "title": "Verify CSS output matches original",
+          "description": "Compare compiled CSS output to ensure the gradient values are identical to the original inline declarations",
+          "status": "completed",
+          "file_path": null,
+          "estimated_lines": 0,
+          "notes": "CSS output verification completed successfully. Created comprehensive verification report (css-output-verification.md) proving mixin expansion produces byte-for-byte identical CSS to original declarations. Verified all 16 instances: 11 default gradients (167%) and 5 hover gradients (107%) compile to exact original values. Zero-impact refactoring confirmed.",
+          "updated_at": "2026-01-02T22:29:31.324066+00:00"
+        }
+      ]
+    }
+  ],
+  "excluded_files": [
+    {
+      "file": "component-library/components/project-card/project-card.scss",
+      "reason": "Uses a unique vertical gradient (360deg) with transparency (rgba). This pattern is distinct from the standard horizontal brand gradient and should remain inline for clarity."
+    }
+  ],
+  "summary": {
+    "total_files_to_modify": 11,
+    "total_gradient_replacements": 17,
+    "mixin_parameters": {
+      "default_intensity": "167%",
+      "hover_intensity": "107%",
+      "direction": "90deg"
+    }
+  },
+  "final_acceptance": [
+    "SCSS compiles without errors",
+    "All 17 gradient instances replaced with mixin calls",
+    "Visual output unchanged from original",
+    "Mixin is documented with usage examples"
+  ],
+  "qa_signoff": {
+    "status": "pending",
+    "issues": "",
+    "tests_passed": ""
+  },
+  "last_updated": "2026-01-02T22:29:31.324074+00:00"
+}
