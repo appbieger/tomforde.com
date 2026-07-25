@@ -34,6 +34,7 @@ csp:
   font_src:
     - "'self'"
     - "fonts.gstatic.com"  # Google Fonts files
+    - "unpkg.com"  # Ionicons font files
 
   # Image sources
   img_src:
