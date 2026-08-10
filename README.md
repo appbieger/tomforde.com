@@ -82,3 +82,5 @@ Der Workflow baut die Website mit Jekyll und deployed sie auf GitHub Pages.
 ## 📄 Lizenz
 
 MIT License - siehe LICENSE Datei
+
+GO
