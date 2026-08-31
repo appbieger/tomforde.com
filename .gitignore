@@ -20,3 +20,7 @@ site/.bundle
 .auto-claude/
 .auto-claude-status
 .claude_settings.json
+
+# Lokale Arbeitsverzeichnisse (Claude Code, git worktrees)
+.claude/
+.worktrees/
