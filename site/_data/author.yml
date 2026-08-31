@@ -3,3 +3,23 @@ email: stephan@tomforde.com
 # twitter: username  # Optional: Dein Twitter/X Handle (ohne @)
 github: appbieger
 linkedin: stephan-tomforde-0bb792125
+
+# Themen für das Person-Schema (schema.org knowsAbout).
+# Hilft Suchmaschinen und KI-Systemen, die Person thematisch einzuordnen.
+# Nur Themen aufnehmen, die auf der Seite inhaltlich auch belegt sind.
+knows_about:
+  - Elektronik
+  - Softwareentwicklung
+  - Künstliche Intelligenz
+  - Datenanalyse
+  - App-Entwicklung
+  - Digitale Produktentwicklung
+  - Technisches Projektmanagement
+  - Smart Home
+  - Drohnen
+  - Autonome Systeme
+  - Maritime Technik
+  - Hausbau in Holzrahmenbauweise
+  - Nachhaltiges Bauen
+  - Tauchen
+  - Hundeerziehung
