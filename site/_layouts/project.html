@@ -10,7 +10,9 @@ layout: default
   {% else %}
     {% assign page_image = site.baseurl | append: page.image %}
   {% endif %}
-  {% bookshop page-image image=page_image %}
+  {%- comment -%} Alt-Text: pro Projekt via image_alt überschreibbar, sonst der Titel {%- endcomment -%}
+  {% assign page_image_alt = page.image_alt | default: page.title %}
+  {% bookshop page-image image=page_image image_alt=page_image_alt %}
 
   <div class="page animate">
     {{ content }}
