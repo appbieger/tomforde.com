@@ -10,14 +10,34 @@
   {% assign seo_description = site.data.general_settings.description %}
 {% endif %}
 
-{% assign seo_description_clean = seo_description | strip_html | strip_newlines | truncate: 160 %}
+{%- comment -%}
+  '><' -> '> <' verhindert, dass beim Entfernen der Tags Wörter zusammenkleben
+  ('</h2><p>' wurde sonst zu 'ProgrammzeilenIch')
+
+  Gekürzt wird auf 160 Zeichen (Budget für das Google-Snippet), aber immer
+  an einer Wortgrenze: Liquids `truncate` schneidet stumpf nach n Zeichen ab
+  und produziert dabei Reste wie 'ist für mich der p...'. Deshalb wird auf
+  158 Zeichen gekürzt und das angeschnittene letzte Wort wieder entfernt.
+{%- endcomment -%}
+{% assign seo_description_full = seo_description | replace: '><', '> <' | strip_html | normalize_whitespace | strip %}
+{% if seo_description_full.size > 160 %}
+  {% assign seo_description_words = seo_description_full | truncate: 158, '' | split: ' ' %}
+  {% assign seo_description_keep = seo_description_words.size | minus: 1 | at_least: 1 %}
+  {% assign seo_description_clean = seo_description_words | slice: 0, seo_description_keep | join: ' ' | strip | append: ' …' %}
+{% else %}
+  {% assign seo_description_clean = seo_description_full %}
+{% endif %}
 
 <!-- Primary Meta Tags -->
 <title>{{ seo_title }}</title>
 <meta name="title" content="{{ seo_title }}">
 <meta name="description" content="{{ seo_description_clean }}">
 <meta name="author" content="{{ site.data.author.name | default: site.data.general_settings.title }}">
+{% if page.noindex %}
+<meta name="robots" content="noindex, follow">
+{% else %}
 <meta name="robots" content="index, follow">
+{% endif %}
 <meta name="revisit-after" content="7 days">
 
 <!-- Keywords (optional, nicht mehr so wichtig für SEO) -->
@@ -37,21 +57,38 @@
 <meta property="og:locale" content="de_DE">
 
 <!-- Open Graph Image -->
-{% if page.image %}
-  <meta property="og:image" content="{{ page.image | absolute_url }}">
-  <meta property="og:image:secure_url" content="{{ page.image | absolute_url }}">
-  <meta property="og:image:type" content="image/jpeg">
-  <meta property="og:image:width" content="1200">
-  <meta property="og:image:height" content="630">
-  <meta property="og:image:alt" content="{{ page.title | default: seo_title }}">
-{% elsif page.url == "/" %}
-  <meta property="og:image" content="{{ site.data.general_settings.social_media_share_image | absolute_url }}">
-  <meta property="og:image:secure_url" content="{{ site.data.general_settings.social_media_share_image | absolute_url }}">
-  <meta property="og:image:type" content="image/jpeg">
-  <meta property="og:image:width" content="1200">
-  <meta property="og:image:height" content="630">
-  <meta property="og:image:alt" content="{{ site.data.general_settings.title }}">
-{% endif %}
+{%- comment -%}
+  Bildquelle und Alt-Text einmal bestimmen und unten fuer die Twitter Card wiederverwenden.
+  Seiten ohne eigenes page.image fallen auf das Share-Bild aus general_settings zurueck.
+
+  og:image:width/height stehen bewusst nicht mehr drin: sie waren fest auf 1200x630
+  verdrahtet und stimmten fuer kein einziges Bild der Seite. Falsche Masse lassen
+  Facebook und LinkedIn die Vorschau schief zuschneiden - fehlende Masse nicht, die
+  Plattformen lesen sie dann selbst aus der Datei.
+{%- endcomment -%}
+{%- if page.image and page.image != '' -%}
+  {%- assign og_image = page.image -%}
+  {%- assign og_image_alt = page.title | default: seo_title -%}
+{%- else -%}
+  {%- assign og_image = site.data.general_settings.social_media_share_image -%}
+  {%- assign og_image_alt = site.data.general_settings.title -%}
+{%- endif -%}
+
+{%- if og_image and og_image != '' -%}
+  {%- comment -%} MIME-Type aus der Dateiendung ableiten statt pauschal image/jpeg {%- endcomment -%}
+  {%- assign og_image_ext = og_image | split: '.' | last | downcase -%}
+  {%- case og_image_ext -%}
+    {%- when 'png' -%}{%- assign og_image_type = 'image/png' -%}
+    {%- when 'webp' -%}{%- assign og_image_type = 'image/webp' -%}
+    {%- when 'gif' -%}{%- assign og_image_type = 'image/gif' -%}
+    {%- when 'svg' -%}{%- assign og_image_type = 'image/svg+xml' -%}
+    {%- else -%}{%- assign og_image_type = 'image/jpeg' -%}
+  {%- endcase -%}
+<meta property="og:image" content="{{ og_image | absolute_url }}">
+<meta property="og:image:secure_url" content="{{ og_image | absolute_url }}">
+<meta property="og:image:type" content="{{ og_image_type }}">
+<meta property="og:image:alt" content="{{ og_image_alt }}">
+{%- endif -%}
 
 <!-- Article specific Open Graph -->
 {% if page.layout == 'post' or page.layout == 'project' %}
@@ -71,13 +108,11 @@
 <meta name="twitter:description" content="{{ seo_description_clean }}">
 
 <!-- Twitter Image -->
-{% if page.image %}
-  <meta name="twitter:image" content="{{ page.image | absolute_url }}">
-  <meta name="twitter:image:alt" content="{{ page.title | default: seo_title }}">
-{% elsif page.url == "/" %}
-  <meta name="twitter:image" content="{{ site.data.general_settings.social_media_share_image | absolute_url }}">
-  <meta name="twitter:image:alt" content="{{ site.data.general_settings.title }}">
-{% endif %}
+{%- comment -%} nutzt og_image / og_image_alt von oben {%- endcomment -%}
+{%- if og_image and og_image != '' -%}
+<meta name="twitter:image" content="{{ og_image | absolute_url }}">
+<meta name="twitter:image:alt" content="{{ og_image_alt }}">
+{%- endif -%}
 
 <!-- Twitter Profile (optional - füge dein Twitter-Handle hinzu) -->
 {% if site.data.author.twitter %}
@@ -90,29 +125,37 @@
 {
   "@context": "https://schema.org",
   "@type": "{% if page.layout == 'post' %}BlogPosting{% elsif page.layout == 'project' %}CreativeWork{% else %}WebSite{% endif %}",
+  {%- comment -%}
+    Alle frei geschriebenen Werte (Titel, Beschreibungen, Namen, Pfade) werden
+    mit `jsonify` ausgegeben statt von Hand in "..." gesetzt. jsonify liefert
+    den fertigen JSON-String inklusive Anfuehrungszeichen und escapt Zeichen
+    wie " und \ - sonst zerlegt ein einzelnes Anfuehrungszeichen im Seitentitel
+    den kompletten Block und die strukturierten Daten fallen still aus.
+    Datumsangaben bleiben roh: date_to_xmlschema liefert reines ISO-8601.
+  {%- endcomment -%}
   {% if page.layout == 'post' or page.layout == 'project' %}
-  "headline": "{{ page.title }}",
-  "description": "{{ seo_description_clean }}",
-  "image": {% if page.image %}"{{ page.image | absolute_url }}"{% else %}"{{ site.data.general_settings.social_media_share_image | absolute_url }}"{% endif %},
+  "headline": {{ page.title | jsonify }},
+  "description": {{ seo_description_clean | jsonify }},
+  "image": {% if page.image %}{{ page.image | absolute_url | jsonify }}{% else %}{{ site.data.general_settings.social_media_share_image | absolute_url | jsonify }}{% endif %},
   "datePublished": "{{ page.date | date_to_xmlschema }}",
   "dateModified": "{{ page.date | date_to_xmlschema }}",
   "author": {
     "@type": "Person",
-    "name": "{{ site.data.author.name | default: 'Stephan Tomforde' }}",
-    "url": "{{ site.url }}"
+    "name": {{ site.data.author.name | default: 'Stephan Tomforde' | jsonify }},
+    "url": {{ site.url | jsonify }}
   },
   "publisher": {
     "@type": "Person",
-    "name": "{{ site.data.author.name | default: 'Stephan Tomforde' }}",
-    "url": "{{ site.url }}"
+    "name": {{ site.data.author.name | default: 'Stephan Tomforde' | jsonify }},
+    "url": {{ site.url | jsonify }}
   },
   {% else %}
-  "name": "{{ site.data.general_settings.title }}",
-  "description": "{{ site.data.general_settings.description }}",
-  "url": "{{ site.url }}",
+  "name": {{ site.data.general_settings.title | jsonify }},
+  "description": {{ site.data.general_settings.description | jsonify }},
+  "url": {{ site.url | jsonify }},
   "author": {
     "@type": "Person",
-    "name": "{{ site.data.author.name | default: 'Stephan Tomforde' }}"
+    "name": {{ site.data.author.name | default: 'Stephan Tomforde' | jsonify }}
   },
   {% endif %}
   "inLanguage": "de-DE"
@@ -126,7 +169,7 @@
   "@context": "https://schema.org",
   "@type": "Person",
   "name": "Stephan Tomforde",
-  "url": "{{ site.url }}",
+  "url": {{ site.url | jsonify }},
   {% assign social_links = "" %}
   {% if site.data.author.github %}
     {% assign social_links = social_links | append: '"https://github.com/' | append: site.data.author.github | append: '"' %}
@@ -141,7 +184,10 @@
   "sameAs": [{{ social_links }}],
   {% endif %}
   "jobTitle": "Techniker & AI enthusiast",
-  "description": "{{ site.data.general_settings.description | strip_html | truncate: 200 }}",
+  "description": {{ site.data.general_settings.description | strip_html | normalize_whitespace | strip | jsonify }},
+  {% if site.data.author.knows_about %}
+  "knowsAbout": {{ site.data.author.knows_about | jsonify }},
+  {% endif %}
   "address": {
     "@type": "PostalAddress",
     "addressCountry": "DE",
