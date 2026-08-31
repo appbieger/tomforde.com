@@ -21,12 +21,12 @@ async function loadSharp() {
   try {
     // Try CommonJS require first
     sharp = require('sharp');
-  } catch (error) {
+  } catch {
     try {
       // Fallback to dynamic import
       const module = await import('sharp');
       sharp = module.default;
-    } catch (importError) {
+    } catch {
       console.error('❌ Fehler: sharp ist nicht installiert.');
       console.error('Bitte installieren mit: npm install sharp');
       process.exit(1);
@@ -50,7 +50,7 @@ const JPEG_QUALITY = 85;
 const WEBP_QUALITY = 80;
 
 // Stats
-let stats = {
+const stats = {
   processed: 0,
   skipped: 0,
   errors: 0,

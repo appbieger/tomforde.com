@@ -80,7 +80,7 @@ document.addEventListener('DOMContentLoaded', function () {
   // Testimonials Slider
   ============================ */
   if (document.querySelector('.my-slider')) {
-    const slider = tns({
+    tns({
       container: '.my-slider',
       items: 3,
       slideBy: 1,

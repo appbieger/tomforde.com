@@ -1,5 +1,6 @@
 # Vendor files (third-party bundled libraries)
 site/js/scripts.js
+site/js/vendor
 
 # Build artifacts
 _site

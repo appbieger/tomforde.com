@@ -12,6 +12,7 @@ module.exports = [
       'node_modules/**',
       'vendor/**',
       'site/vendor/**',
+      'site/js/vendor/**', // Third-party ESM bundles (PhotoSwipe)
       'site/_cloudcannon/**',
       'site/js/bookshop-hosted.js',
     ],

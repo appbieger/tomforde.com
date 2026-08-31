@@ -28,8 +28,10 @@ const stat = promisify(fs.stat);
 const IMAGE_EXTENSIONS = ['.jpg', '.jpeg', '.png', '.webp', '.gif'];
 
 // Gallery subdirectories to process (relative to site/images/)
-// Only images in these subdirectories will be renamed
-const GALLERY_DIRS = ['stella', 'faszination-wasser', 'hunde'];
+// Jeder Unterordner von images/ gilt als Galerie - so muss beim Anlegen eines neuen
+// Projekts nichts mehr nachgetragen werden. Bilder direkt in images/ (Teaser, Header,
+// Logos) werden bewusst nicht angefasst.
+const GALLERY_DIR_PATTERN = /(^|\/)images\/[^/]+\/[^/]+$/;
 
 /**
  * Check if filename already contains dimensions
@@ -43,26 +45,7 @@ function hasDimensions(filename) {
  */
 function isInGalleryDir(filePath) {
   const normalizedPath = filePath.replace(/\\/g, '/');
-  return GALLERY_DIRS.some((galleryDir) => {
-    return (
-      normalizedPath.includes(`/images/${galleryDir}/`) ||
-      normalizedPath.includes(`images/${galleryDir}/`)
-    );
-  });
-}
-
-/**
- * Extract dimensions from filename if present
- */
-function extractDimensions(filename) {
-  const match = filename.match(/_(\d+)x(\d+)\.\w+$/);
-  if (match) {
-    return {
-      width: parseInt(match[1], 10),
-      height: parseInt(match[2], 10),
-    };
-  }
-  return null;
+  return GALLERY_DIR_PATTERN.test(normalizedPath);
 }
 
 /**
@@ -147,7 +130,7 @@ async function main() {
       console.error(`✗ Fehler: ${fullPath} ist kein Verzeichnis`);
       process.exit(1);
     }
-  } catch (error) {
+  } catch {
     console.error(`✗ Fehler: Verzeichnis ${fullPath} nicht gefunden`);
     process.exit(1);
   }
