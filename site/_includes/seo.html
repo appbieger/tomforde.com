@@ -125,29 +125,37 @@
 {
   "@context": "https://schema.org",
   "@type": "{% if page.layout == 'post' %}BlogPosting{% elsif page.layout == 'project' %}CreativeWork{% else %}WebSite{% endif %}",
+  {%- comment -%}
+    Alle frei geschriebenen Werte (Titel, Beschreibungen, Namen, Pfade) werden
+    mit `jsonify` ausgegeben statt von Hand in "..." gesetzt. jsonify liefert
+    den fertigen JSON-String inklusive Anfuehrungszeichen und escapt Zeichen
+    wie " und \ - sonst zerlegt ein einzelnes Anfuehrungszeichen im Seitentitel
+    den kompletten Block und die strukturierten Daten fallen still aus.
+    Datumsangaben bleiben roh: date_to_xmlschema liefert reines ISO-8601.
+  {%- endcomment -%}
   {% if page.layout == 'post' or page.layout == 'project' %}
-  "headline": "{{ page.title }}",
-  "description": "{{ seo_description_clean }}",
-  "image": {% if page.image %}"{{ page.image | absolute_url }}"{% else %}"{{ site.data.general_settings.social_media_share_image | absolute_url }}"{% endif %},
+  "headline": {{ page.title | jsonify }},
+  "description": {{ seo_description_clean | jsonify }},
+  "image": {% if page.image %}{{ page.image | absolute_url | jsonify }}{% else %}{{ site.data.general_settings.social_media_share_image | absolute_url | jsonify }}{% endif %},
   "datePublished": "{{ page.date | date_to_xmlschema }}",
   "dateModified": "{{ page.date | date_to_xmlschema }}",
   "author": {
     "@type": "Person",
-    "name": "{{ site.data.author.name | default: 'Stephan Tomforde' }}",
-    "url": "{{ site.url }}"
+    "name": {{ site.data.author.name | default: 'Stephan Tomforde' | jsonify }},
+    "url": {{ site.url | jsonify }}
   },
   "publisher": {
     "@type": "Person",
-    "name": "{{ site.data.author.name | default: 'Stephan Tomforde' }}",
-    "url": "{{ site.url }}"
+    "name": {{ site.data.author.name | default: 'Stephan Tomforde' | jsonify }},
+    "url": {{ site.url | jsonify }}
   },
   {% else %}
-  "name": "{{ site.data.general_settings.title }}",
-  "description": "{{ site.data.general_settings.description }}",
-  "url": "{{ site.url }}",
+  "name": {{ site.data.general_settings.title | jsonify }},
+  "description": {{ site.data.general_settings.description | jsonify }},
+  "url": {{ site.url | jsonify }},
   "author": {
     "@type": "Person",
-    "name": "{{ site.data.author.name | default: 'Stephan Tomforde' }}"
+    "name": {{ site.data.author.name | default: 'Stephan Tomforde' | jsonify }}
   },
   {% endif %}
   "inLanguage": "de-DE"
@@ -161,7 +169,7 @@
   "@context": "https://schema.org",
   "@type": "Person",
   "name": "Stephan Tomforde",
-  "url": "{{ site.url }}",
+  "url": {{ site.url | jsonify }},
   {% assign social_links = "" %}
   {% if site.data.author.github %}
     {% assign social_links = social_links | append: '"https://github.com/' | append: site.data.author.github | append: '"' %}
