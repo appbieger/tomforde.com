@@ -15,6 +15,10 @@ bookshop_locations:
 exclude:
   - postcss.config.js
   - node_modules
+  # CloudCannon-Schemas: liest CloudCannon direkt aus dem Repo (siehe cloudcannon.config.yml).
+  # Sie gehören nicht in den Build - sonst sind sie unter /schemas/*.html öffentlich
+  # erreichbar und landen in der sitemap.xml.
+  - schemas
 
 include:
   - _cloudcannon
