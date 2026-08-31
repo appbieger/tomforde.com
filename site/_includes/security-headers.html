@@ -1,7 +1,14 @@
 <!-- Security Headers for Browser Protection -->
 {%- if site.data.security.enabled.content_security_policy -%}
 <!-- Content Security Policy -->
-<meta http-equiv="Content-Security-Policy" content="default-src {{ site.data.security.csp.default_src | join: ' ' }}; script-src {{ site.data.security.csp.script_src | join: ' ' }}; style-src {{ site.data.security.csp.style_src | join: ' ' }}; font-src {{ site.data.security.csp.font_src | join: ' ' }}; img-src {{ site.data.security.csp.img_src | join: ' ' }}; connect-src {{ site.data.security.csp.connect_src | join: ' ' }}; frame-ancestors {{ site.data.security.csp.frame_ancestors | join: ' ' }}">
+{%- comment -%}
+  Hinweis: 'frame-ancestors' wird hier bewusst NICHT ausgegeben. Die Direktive ist
+  laut CSP-Spezifikation in einem <meta>-Tag wirkungslos und erzeugt in jedem Browser
+  nur eine Konsolenfehlermeldung. Sie wirkt ausschliesslich als HTTP-Header, den
+  GitHub Pages nicht setzen kann. site.data.security.csp.frame_ancestors bleibt als
+  Dokumentation erhalten, falls das Hosting einmal wechselt.
+{%- endcomment -%}
+<meta http-equiv="Content-Security-Policy" content="default-src {{ site.data.security.csp.default_src | join: ' ' }}; script-src {{ site.data.security.csp.script_src | join: ' ' }}; style-src {{ site.data.security.csp.style_src | join: ' ' }}; font-src {{ site.data.security.csp.font_src | join: ' ' }}; img-src {{ site.data.security.csp.img_src | join: ' ' }}; connect-src {{ site.data.security.csp.connect_src | join: ' ' }}">
 {%- endif -%}
 
 {%- if site.data.security.enabled.referrer_policy -%}

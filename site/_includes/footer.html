@@ -14,7 +14,9 @@
           {% endfor %}
         </ul>
 
-        <div class="copyright">{{ site.data.footer.copyright_text_html }}</div>
+        {%- comment -%} [year] wird durch das Build-Jahr ersetzt {%- endcomment -%}
+        {%- assign current_year = site.time | date: '%Y' -%}
+        <div class="copyright">{{ site.data.footer.copyright_text_html | replace: '[year]', current_year }}</div>
 
       </div>
     </div>
