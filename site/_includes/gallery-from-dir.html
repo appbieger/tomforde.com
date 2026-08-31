@@ -8,23 +8,32 @@
     - gallery_id (optional): ID/Name für data-pswp-gallery (Default: letzter Ordnername)
 
   Hinweis:
+    - Es werden ausschliesslich Bilder AUS diesem Ordner übernommen. Der Vergleich läuft
+      über '/<dir>/', damit gleichnamige Dateien daneben nicht mit hereinrutschen
+      (z. B. landet '/images/luna.jpg' nicht in der Galerie 'images/luna')
     - Bilder werden alphabetisch nach Dateiname sortiert
     - Unterstützte Formate: .jpg, .jpeg, .png, .webp
     - Dimensionen werden aus Dateinamen extrahiert (Format: dateiname_BREITExHÖHE.ext)
     - Beschreibungen werden aus _data/gallery_captions.yml gelesen
     - Führe 'npm run images:add-dimensions' aus, um Dimensionen zu Dateinamen hinzuzufügen
+    - Fehlt der Ordner oder enthält er keine Bilder, wird gar nichts ausgegeben
 {%- endcomment -%}
 
-{%- assign gallery_dir = include.dir -%}
 {%- assign gallery_id = include.gallery_id | default: 'gallery' -%}
 
+{%- comment -%}
+  Ordner-Präfix normalisieren: führender Slash garantiert, doppelte Slashes entfernt.
+  'images/luna' und '/images/luna/' ergeben beide '/images/luna/'
+{%- endcomment -%}
+{%- assign gallery_prefix = '/' | append: include.dir | append: '/' | replace: '//', '/' -%}
+
 {%- comment -%} Filtere alle statischen Dateien nach dem Verzeichnis {%- endcomment -%}
-{%- assign gallery_images = site.static_files | where_exp: "file", "file.path contains gallery_dir" -%}
+{%- assign gallery_images = site.static_files | where_exp: "file", "file.path contains gallery_prefix" -%}
 
 {%- comment -%} Lade Captions aus Data-Datei {%- endcomment -%}
 {%- assign captions = site.data.gallery_captions[gallery_id] -%}
 
-<div class="gallery" data-pswp-gallery="{{ gallery_id }}">
+{%- capture gallery_items -%}
 {%- for image in gallery_images -%}
   {%- assign extension = image.extname | downcase -%}
   {%- comment -%} Ignoriere WebP-Versionen - nur Originale anzeigen {%- endcomment -%}
@@ -33,13 +42,14 @@
     {%- assign basename = image.basename -%}
     {%- assign parts = basename | split: '_' -%}
     {%- assign last_part = parts | last -%}
-    
+
     {%- comment -%} Prüfe ob letzter Teil Dimensionen enthält (z.B. "1920x1080") {%- endcomment -%}
     {%- if last_part contains 'x' -%}
       {%- assign dimensions = last_part | split: 'x' -%}
       {%- assign width = dimensions[0] -%}
       {%- assign height = dimensions[1] -%}
-      
+      {%- assign has_dimensions = true -%}
+
       {%- comment -%} Entferne Dimensions-Teil für Base-Name {%- endcomment -%}
       {%- assign name_parts = parts | pop -%}
       {%- assign base_name = name_parts | join: '_' -%}
@@ -47,20 +57,28 @@
       {%- comment -%} Keine Dimensionen im Dateinamen, verwende Defaults {%- endcomment -%}
       {%- assign width = 800 -%}
       {%- assign height = 600 -%}
+      {%- assign has_dimensions = false -%}
       {%- assign base_name = basename -%}
     {%- endif -%}
-    
+
     {%- comment -%} Hole Beschreibung aus Data-Datei {%- endcomment -%}
     {%- assign description = captions[base_name] -%}
-    
+
     <a href="{{ image.path }}" data-pswp-width="{{ width }}" data-pswp-height="{{ height }}">
-      <img src="{{ image.path }}" alt="{{ base_name | replace: '-', ' ' | replace: '_', ' ' }}" loading="lazy">
+      {%- comment -%}
+        width/height nur setzen, wenn sie wirklich aus dem Dateinamen stammen - sonst
+        würde der Browser mit den Default-Werten ein falsches Seitenverhältnis reservieren
+      {%- endcomment -%}
+      <img src="{{ image.path }}" alt="{{ base_name | replace: '-', ' ' | replace: '_', ' ' }}" loading="lazy"{% if has_dimensions %} width="{{ width }}" height="{{ height }}"{% endif %}>
       {%- if description and description != '' -%}
         <span class="pswp-caption-content" style="display:none;">{{ description }}</span>
       {%- endif -%}
     </a>
   {%- endif -%}
 {%- endfor -%}
-</div>
+{%- endcapture -%}
 
-
+{%- assign gallery_items_stripped = gallery_items | strip -%}
+{%- if gallery_items_stripped != '' -%}
+<div class="gallery" data-pswp-gallery="{{ gallery_id }}">{{ gallery_items }}</div>
+{%- endif -%}
